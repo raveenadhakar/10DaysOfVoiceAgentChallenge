@@ -39,7 +39,36 @@ export const getAppConfig = cache(async (headers: Headers): Promise<AppConfig> =
       });
 
       if (response.ok) {
-        const remoteConfig: SandboxConfig = await response.json();
+        // Check if the response is actually JSON
+        const contentType = response.headers.get('content-type');
+        if (!contentType || !contentType.includes('application/json')) {
+          console.warn('Config endpoint returned non-JSON response, using defaults');
+          return { ...APP_CONFIG_DEFAULTS, sandboxId };
+        }
+
+        const responseText = await response.text();
+        if (!responseText.trim()) {
+          console.warn('Config endpoint returned empty response, using defaults');
+          return { ...APP_CONFIG_DEFAULTS, sandboxId };
+        }
+
+        // Additional validation for common non-JSON responses
+        if (responseText.trim().toLowerCase() === 'ok' || 
+            responseText.trim().toLowerCase() === 'success' ||
+            responseText.trim().match(/^[a-zA-Z\s]+$/)) {
+          console.warn('Config endpoint returned plain text response instead of JSON, using defaults');
+          console.warn('Response text:', responseText);
+          return { ...APP_CONFIG_DEFAULTS, sandboxId };
+        }
+
+        let remoteConfig: SandboxConfig;
+        try {
+          remoteConfig = JSON.parse(responseText);
+        } catch (parseError) {
+          console.error('Failed to parse config response as JSON:', parseError);
+          console.error('Response text:', responseText);
+          return { ...APP_CONFIG_DEFAULTS, sandboxId };
+        }
 
         const config: AppConfig = { ...APP_CONFIG_DEFAULTS, sandboxId };
 

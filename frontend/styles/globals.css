@@ -74,7 +74,7 @@
 
 @theme inline {
   --font-sans:
-    var(--font-public-sans), ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
+    var(--font-public-sans), 'Public Sans', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif, 'Apple Color Emoji',
     'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   --font-mono:
     var(--font-commit-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
@@ -119,6 +119,14 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+  
+  /* Fallback font loading */
+  @font-face {
+    font-family: 'Public Sans Fallback';
+    src: local('system-ui'), local('-apple-system'), local('BlinkMacSystemFont'), local('Segoe UI'), local('Roboto');
+    font-display: swap;
+    font-weight: 100 900;
   }
 }
 
