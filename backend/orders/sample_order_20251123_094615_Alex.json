@@ -1,0 +1,9 @@
+{
+  "drinkType": "latte",
+  "size": "medium",
+  "milk": "oat milk",
+  "extras": ["extra shot", "vanilla syrup"],
+  "name": "Alex",
+  "timestamp": "2025-11-23T09:46:15.123456",
+  "order_id": "ORD-20251123_094615"
+}

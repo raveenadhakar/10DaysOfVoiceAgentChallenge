@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'motion/react';
 import type { AppConfig } from '@/app-config';
 import { ChatTranscript } from '@/components/app/chat-transcript';
+import { CoffeeOrderDisplay } from '@/components/app/coffee-order-display';
 import { PreConnectMessage } from '@/components/app/preconnect-message';
 import { TileLayout } from '@/components/app/tile-layout';
 import {
@@ -92,6 +93,11 @@ export const SessionView = ({
 
   return (
     <section className="bg-background relative z-10 h-full w-full overflow-hidden" {...props}>
+      {/* Coffee Order Display */}
+      <div className="fixed top-4 right-4 z-40 max-w-sm md:max-w-md lg:max-w-lg">
+        <CoffeeOrderDisplay className="transform scale-90 md:scale-100" />
+      </div>
+
       {/* Chat Transcript */}
       <div
         className={cn(
