@@ -8,7 +8,7 @@ function CoffeeIcon() {
       viewBox="0 0 64 64"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className="text-amber-600 mb-4 size-16"
+      className="mb-4 size-16 text-amber-600"
     >
       <path
         d="M12 18V48C12 50.1217 12.8429 52.1566 14.3431 53.6569C15.8434 55.1571 17.8783 56 20 56H36C38.1217 56 40.1566 55.1571 41.6569 53.6569C43.1571 52.1566 44 50.1217 44 48V18H12Z"
@@ -59,13 +59,11 @@ export const WelcomeView = ({
     <div ref={ref}>
       <section className="bg-background flex flex-col items-center justify-center text-center">
         <CoffeeIcon />
-        
-        <h1 className="text-3xl font-bold text-foreground mb-2">
-          Brew & Bean Coffee Shop
-        </h1>
-        
+
+        <h1 className="text-foreground mb-2 text-3xl font-bold">Brew & Bean Coffee Shop</h1>
+
         <p className="text-foreground max-w-prose pt-1 leading-6 font-medium">
-          Hi! I'm Rav, your friendly barista. Let me help you order the perfect coffee!
+          Hi! I&apos;m Rav, your friendly barista. Let me help you order the perfect coffee!
         </p>
 
         <Button variant="primary" size="lg" onClick={onStartCall} className="mt-6 w-64 font-mono">

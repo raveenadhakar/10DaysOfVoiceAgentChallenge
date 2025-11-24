@@ -26,214 +26,285 @@ logger = logging.getLogger("agent")
 
 load_dotenv(".env")
 
-# Order state structure
-class OrderState:
+# Wellness check-in state structure
+class WellnessState:
     def __init__(self):
-        self.drink_type: Optional[str] = None
-        self.size: Optional[str] = None
-        self.milk: Optional[str] = None
-        self.extras: List[str] = []
-        self.name: Optional[str] = None
+        self.mood: Optional[str] = None
+        self.energy_level: Optional[str] = None
+        self.stress_factors: List[str] = []
+        self.daily_objectives: List[str] = []
+        self.self_care_intentions: List[str] = []
+        self.check_in_complete: bool = False
     
     def to_dict(self) -> Dict:
         return {
-            "drinkType": self.drink_type,
-            "size": self.size,
-            "milk": self.milk,
-            "extras": self.extras,
-            "name": self.name
+            "mood": self.mood,
+            "energy_level": self.energy_level,
+            "stress_factors": self.stress_factors,
+            "daily_objectives": self.daily_objectives,
+            "self_care_intentions": self.self_care_intentions,
+            "check_in_complete": self.check_in_complete
         }
     
     def is_complete(self) -> bool:
-        return all([
-            self.drink_type is not None,
-            self.size is not None,
-            self.milk is not None,
-            self.name is not None
-        ])
+        return (
+            self.mood is not None and 
+            self.energy_level is not None and 
+            len(self.daily_objectives) > 0
+        )
     
     def get_missing_fields(self) -> List[str]:
         missing = []
-        if not self.drink_type:
-            missing.append("drink type")
-        if not self.size:
-            missing.append("size")
-        if not self.milk:
-            missing.append("milk preference")
-        if not self.name:
-            missing.append("name")
+        if not self.mood:
+            missing.append("mood")
+        if not self.energy_level:
+            missing.append("energy level")
+        if not self.daily_objectives:
+            missing.append("daily objectives")
         return missing
 
 
-class CoffeeShopBarista(Agent):
+class HealthWellnessCompanion(Agent):
     def __init__(self) -> None:
         super().__init__(
-            instructions="""You are Maya, a friendly and enthusiastic barista at Brew & Bean Coffee Shop. You're passionate about coffee and love helping customers find their perfect drink.
+            instructions="""You are Alex, a supportive and grounded health & wellness companion. You conduct daily check-ins to help people reflect on their mood, energy, and daily intentions.
 
             Your personality:
-            - Warm, welcoming, and energetic
-            - Knowledgeable about coffee drinks and ingredients
-            - Patient when customers are deciding
-            - Use casual, conversational language
-            - Occasionally mention coffee facts or recommendations
+            - Warm, empathetic, and genuinely caring
+            - Supportive but realistic and grounded
+            - Non-judgmental and encouraging
+            - Use gentle, conversational language
+            - Focus on small, actionable steps
 
-            Your job is to take complete coffee orders by collecting:
-            1. Drink type (espresso, latte, cappuccino, americano, macchiato, mocha, frappuccino, etc.)
-            2. Size (small, medium, large)
-            3. Milk preference (whole milk, 2% milk, oat milk, almond milk, soy milk, coconut milk, no milk)
-            4. Any extras (extra shot, decaf, vanilla syrup, caramel syrup, whipped cream, extra hot, iced, etc.)
-            5. Customer's name for the order
+            IMPORTANT: You are NOT a medical professional. Avoid any diagnosis, medical advice, or clinical claims.
 
-            Always ask clarifying questions until you have all required information. Be conversational and helpful. When the order is complete, confirm all details and let them know you're processing their order.
+            Your role is to:
+            1. Ask about mood and energy levels in a caring way
+            2. Inquire about any stress factors (without being intrusive)
+            3. Help identify 1-3 practical daily objectives
+            4. Suggest simple self-care activities if appropriate
+            5. Offer small, realistic advice and reflections
+            6. Provide a brief recap to confirm understanding
 
-            Keep responses concise and natural - you're speaking, not writing.""",
+            Keep your suggestions:
+            - Small and actionable
+            - Non-medical and non-diagnostic
+            - Grounded in practical daily life
+            - Examples: taking short breaks, going for walks, breaking tasks into smaller steps
+
+            Always reference previous check-ins when available to show continuity and care.
+
+            Keep responses concise and natural - you're having a supportive conversation, not giving a lecture.""",
         )
-        self.order_state = OrderState()
+        self.wellness_state = WellnessState()
         self._room = None
+        self.wellness_log_file = "wellness_log.json"
 
     def set_room(self, room):
         """Set the room for sending data updates."""
         self._room = room
 
-    async def _send_order_update(self):
-        """Send order state update to frontend via data channel."""
+    async def _send_wellness_update(self):
+        """Send wellness state update to frontend via data channel."""
         if self._room:
             try:
-                order_data = {
-                    "type": "order_update",
-                    "data": self.order_state.to_dict()
+                wellness_data = {
+                    "type": "wellness_update",
+                    "data": self.wellness_state.to_dict()
                 }
                 await self._room.local_participant.publish_data(
-                    json.dumps(order_data).encode('utf-8'),
-                    topic="coffee_order"
+                    json.dumps(wellness_data).encode('utf-8'),
+                    topic="wellness_checkin"
                 )
-                logger.info(f"Sent order update: {order_data}")
+                logger.info(f"Sent wellness update: {wellness_data}")
             except Exception as e:
-                logger.error(f"Failed to send order update: {e}")
+                logger.error(f"Failed to send wellness update: {e}")
+
+    def _load_previous_entries(self) -> List[Dict]:
+        """Load previous wellness check-in entries from JSON file."""
+        try:
+            if os.path.exists(self.wellness_log_file):
+                with open(self.wellness_log_file, 'r') as f:
+                    data = json.load(f)
+                    return data.get('entries', [])
+        except Exception as e:
+            logger.error(f"Failed to load previous entries: {e}")
+        return []
+
+    def _get_previous_context(self) -> str:
+        """Get context from previous check-ins for conversation continuity."""
+        entries = self._load_previous_entries()
+        if not entries:
+            return "This is our first check-in together."
+        
+        # Get the most recent entry
+        last_entry = entries[-1]
+        last_date = last_entry.get('date', 'recently')
+        last_mood = last_entry.get('mood', 'unknown')
+        last_energy = last_entry.get('energy_level', 'unknown')
+        
+        context = f"Last time we talked on {last_date}, you mentioned feeling {last_mood} with {last_energy} energy."
+        
+        # Add objectives context if available
+        if last_entry.get('daily_objectives'):
+            objectives = last_entry['daily_objectives'][:2]  # First 2 objectives
+            context += f" You had goals like: {', '.join(objectives)}."
+        
+        return context
 
     @function_tool
-    async def update_drink_type(self, context: RunContext, drink_type: str):
-        """Update the customer's drink choice.
+    async def record_mood(self, context: RunContext, mood: str):
+        """Record the user's current mood.
         
         Args:
-            drink_type: The type of coffee drink (e.g., latte, cappuccino, americano, mocha)
+            mood: Description of current mood (e.g., happy, stressed, tired, energetic, anxious, calm)
         """
-        self.order_state.drink_type = drink_type.lower()
-        logger.info(f"Updated drink type to: {drink_type}")
-        await self._send_order_update()
-        return f"Got it! One {drink_type}."
+        self.wellness_state.mood = mood.lower()
+        logger.info(f"Recorded mood: {mood}")
+        await self._send_wellness_update()
+        return f"I hear that you're feeling {mood}. Thank you for sharing that with me."
 
     @function_tool
-    async def update_size(self, context: RunContext, size: str):
-        """Update the size of the drink.
+    async def record_energy_level(self, context: RunContext, energy_level: str):
+        """Record the user's current energy level.
         
         Args:
-            size: The size of the drink (small, medium, large)
+            energy_level: Description of energy level (e.g., high, low, moderate, drained, energized)
         """
-        self.order_state.size = size.lower()
-        logger.info(f"Updated size to: {size}")
-        await self._send_order_update()
-        return f"Perfect! {size.capitalize()} size."
+        self.wellness_state.energy_level = energy_level.lower()
+        logger.info(f"Recorded energy level: {energy_level}")
+        await self._send_wellness_update()
+        return f"Got it, your energy is {energy_level} today."
 
     @function_tool
-    async def update_milk(self, context: RunContext, milk_type: str):
-        """Update the milk preference for the drink.
+    async def add_stress_factor(self, context: RunContext, stress_factor: str):
+        """Add something that's causing stress or concern.
         
         Args:
-            milk_type: Type of milk (whole milk, 2% milk, oat milk, almond milk, soy milk, coconut milk, no milk)
+            stress_factor: Something causing stress (e.g., work deadline, family situation, health concern)
         """
-        self.order_state.milk = milk_type.lower()
-        logger.info(f"Updated milk to: {milk_type}")
-        await self._send_order_update()
-        return f"Noted! {milk_type.capitalize()}."
+        if stress_factor.lower() not in self.wellness_state.stress_factors:
+            self.wellness_state.stress_factors.append(stress_factor.lower())
+        logger.info(f"Added stress factor: {stress_factor}")
+        await self._send_wellness_update()
+        return f"I understand that {stress_factor} is weighing on you right now."
 
     @function_tool
-    async def add_extra(self, context: RunContext, extra: str):
-        """Add an extra item or modification to the drink.
+    async def add_daily_objective(self, context: RunContext, objective: str):
+        """Add a daily goal or objective the user wants to accomplish.
         
         Args:
-            extra: Extra item like extra shot, syrup, whipped cream, etc.
+            objective: A goal or task for today (e.g., finish report, exercise, call family)
         """
-        if extra.lower() not in self.order_state.extras:
-            self.order_state.extras.append(extra.lower())
-        logger.info(f"Added extra: {extra}")
-        await self._send_order_update()
-        return f"Added {extra} to your order!"
+        if objective.lower() not in self.wellness_state.daily_objectives:
+            self.wellness_state.daily_objectives.append(objective.lower())
+        logger.info(f"Added daily objective: {objective}")
+        await self._send_wellness_update()
+        return f"That sounds like a great goal: {objective}."
 
     @function_tool
-    async def update_name(self, context: RunContext, name: str):
-        """Update the customer's name for the order.
+    async def add_self_care_intention(self, context: RunContext, intention: str):
+        """Add a self-care activity or intention for the day.
         
         Args:
-            name: Customer's name
+            intention: Self-care activity (e.g., take a walk, read a book, meditate, rest)
         """
-        self.order_state.name = name.title()
-        logger.info(f"Updated name to: {name}")
-        await self._send_order_update()
-        return f"Thanks {name}!"
+        if intention.lower() not in self.wellness_state.self_care_intentions:
+            self.wellness_state.self_care_intentions.append(intention.lower())
+        logger.info(f"Added self-care intention: {intention}")
+        await self._send_wellness_update()
+        return f"That's wonderful - {intention} sounds like great self-care."
 
     @function_tool
-    async def check_order_status(self, context: RunContext):
-        """Check what information is still needed to complete the order."""
-        missing = self.order_state.get_missing_fields()
+    async def get_previous_context(self, context: RunContext):
+        """Get information from previous check-ins to provide continuity."""
+        previous_context = self._get_previous_context()
+        return previous_context
+
+    @function_tool
+    async def check_wellness_status(self, context: RunContext):
+        """Check what information is still needed to complete the wellness check-in."""
+        missing = self.wellness_state.get_missing_fields()
         if not missing:
-            return "Your order is complete! Let me process that for you."
+            return "We've covered the main areas! Let me give you a recap of our check-in."
         else:
-            return f"I still need: {', '.join(missing)}"
+            return f"I'd still like to hear about: {', '.join(missing)}"
 
     @function_tool
-    async def complete_order(self, context: RunContext):
-        """Complete and save the order when all information is collected."""
-        if not self.order_state.is_complete():
-            missing = self.order_state.get_missing_fields()
-            return f"I still need to get your {', '.join(missing)} before I can complete the order."
+    async def complete_checkin(self, context: RunContext):
+        """Complete and save the wellness check-in when all information is collected."""
+        if not self.wellness_state.is_complete():
+            missing = self.wellness_state.get_missing_fields()
+            return f"Let's make sure we cover {', '.join(missing)} before we wrap up our check-in."
         
-        # Create orders directory if it doesn't exist
-        orders_dir = "orders"
-        os.makedirs(orders_dir, exist_ok=True)
-        
-        # Generate filename with timestamp
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        filename = f"{orders_dir}/order_{timestamp}_{self.order_state.name.replace(' ', '_')}.json"
-        
-        # Prepare order data
-        order_data = {
-            **self.order_state.to_dict(),
-            "timestamp": datetime.now().isoformat(),
-            "order_id": f"ORD-{timestamp}"
+        # Prepare check-in data
+        timestamp = datetime.now()
+        checkin_data = {
+            **self.wellness_state.to_dict(),
+            "date": timestamp.strftime("%Y-%m-%d"),
+            "time": timestamp.strftime("%H:%M:%S"),
+            "timestamp": timestamp.isoformat(),
+            "summary": f"Feeling {self.wellness_state.mood} with {self.wellness_state.energy_level} energy. Goals: {', '.join(self.wellness_state.daily_objectives[:3])}"
         }
+        
+        # Load existing entries or create new structure
+        wellness_log = {"entries": []}
+        try:
+            if os.path.exists(self.wellness_log_file):
+                with open(self.wellness_log_file, 'r') as f:
+                    wellness_log = json.load(f)
+        except Exception as e:
+            logger.error(f"Failed to load existing wellness log: {e}")
+        
+        # Add new entry
+        wellness_log["entries"].append(checkin_data)
         
         # Save to JSON file
         try:
-            with open(filename, 'w') as f:
-                json.dump(order_data, f, indent=2)
+            with open(self.wellness_log_file, 'w') as f:
+                json.dump(wellness_log, f, indent=2)
             
-            logger.info(f"Order saved to {filename}")
+            logger.info(f"Wellness check-in saved to {self.wellness_log_file}")
             
-            # Send order completion notification
+            # Send completion notification
             completion_data = {
-                "type": "order_complete",
-                "data": order_data
+                "type": "checkin_complete",
+                "data": checkin_data
             }
             if self._room:
                 await self._room.local_participant.publish_data(
                     json.dumps(completion_data).encode('utf-8'),
-                    topic="coffee_order"
+                    topic="wellness_checkin"
                 )
             
-            # Create order summary
-            extras_text = f" with {', '.join(self.order_state.extras)}" if self.order_state.extras else ""
-            summary = f"Perfect! I've got your order: {self.order_state.size} {self.order_state.drink_type} with {self.order_state.milk}{extras_text} for {self.order_state.name}. Your order has been saved and we'll have it ready shortly!"
+            # Create summary
+            objectives_text = ', '.join(self.wellness_state.daily_objectives[:3])
+            stress_text = f" I also noted that {', '.join(self.wellness_state.stress_factors)} is on your mind." if self.wellness_state.stress_factors else ""
+            self_care_text = f" For self-care, you're planning to {', '.join(self.wellness_state.self_care_intentions)}." if self.wellness_state.self_care_intentions else ""
             
-            # Reset order state for next customer
-            self.order_state = OrderState()
-            await self._send_order_update()  # Send empty state for next order
+            summary = f"Thank you for sharing with me today. To recap: you're feeling {self.wellness_state.mood} with {self.wellness_state.energy_level} energy, and your main goals are {objectives_text}.{stress_text}{self_care_text} Does this sound right? I've saved our check-in and I'm here whenever you need to talk."
+            
+            # Mark check-in as complete but don't reset state yet (for confirmation)
+            self.wellness_state.check_in_complete = True
+            await self._send_wellness_update()
             
             return summary
             
         except Exception as e:
-            logger.error(f"Failed to save order: {e}")
-            return "I'm sorry, there was an issue processing your order. Please try again."
+            logger.error(f"Failed to save wellness check-in: {e}")
+            return "I'm sorry, there was an issue saving our check-in. But I want you to know that I heard everything you shared with me today."
+
+    @function_tool
+    async def start_new_checkin(self, context: RunContext):
+        """Start a fresh wellness check-in session."""
+        # Reset wellness state for new check-in
+        self.wellness_state = WellnessState()
+        await self._send_wellness_update()
+        
+        # Get previous context for continuity
+        previous_context = self._get_previous_context()
+        
+        return f"Hello! I'm here for your daily wellness check-in. {previous_context} How are you feeling today?"
 
 
 def prewarm(proc: JobProcess):
@@ -321,7 +392,7 @@ async def entrypoint(ctx: JobContext):
     # await avatar.start(session, room=ctx.room)
 
     # Create the agent and set the room reference
-    agent = CoffeeShopBarista()
+    agent = HealthWellnessCompanion()
     agent.set_room(ctx.room)
     
     # Add event handlers for debugging voice input

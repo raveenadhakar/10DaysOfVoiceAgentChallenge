@@ -53,10 +53,14 @@ export const getAppConfig = cache(async (headers: Headers): Promise<AppConfig> =
         }
 
         // Additional validation for common non-JSON responses
-        if (responseText.trim().toLowerCase() === 'ok' || 
-            responseText.trim().toLowerCase() === 'success' ||
-            responseText.trim().match(/^[a-zA-Z\s]+$/)) {
-          console.warn('Config endpoint returned plain text response instead of JSON, using defaults');
+        if (
+          responseText.trim().toLowerCase() === 'ok' ||
+          responseText.trim().toLowerCase() === 'success' ||
+          responseText.trim().match(/^[a-zA-Z\s]+$/)
+        ) {
+          console.warn(
+            'Config endpoint returned plain text response instead of JSON, using defaults'
+          );
           console.warn('Response text:', responseText);
           return { ...APP_CONFIG_DEFAULTS, sandboxId };
         }

@@ -1,0 +1,45 @@
+{
+  "entries": [
+    {
+      "mood": "optimistic",
+      "energy_level": "moderate",
+      "stress_factors": [
+        "upcoming presentation"
+      ],
+      "daily_objectives": [
+        "prepare slides",
+        "practice presentation",
+        "go for a walk"
+      ],
+      "self_care_intentions": [
+        "take breaks every hour"
+      ],
+      "check_in_complete": true,
+      "date": "2024-11-23",
+      "time": "09:15:00",
+      "timestamp": "2024-11-23T09:15:00",
+      "summary": "Feeling optimistic with moderate energy. Goals: prepare slides, practice presentation, go for a walk"
+    },
+    {
+      "mood": "focused",
+      "energy_level": "high",
+      "stress_factors": [
+        "tight deadline"
+      ],
+      "daily_objectives": [
+        "complete project",
+        "team meeting",
+        "exercise"
+      ],
+      "self_care_intentions": [
+        "meditation",
+        "early bedtime"
+      ],
+      "check_in_complete": true,
+      "date": "2025-11-24",
+      "time": "14:37:13",
+      "timestamp": "2025-11-24T14:37:13.093510",
+      "summary": "Feeling focused with high energy. Goals: complete project, team meeting, exercise"
+    }
+  ]
+}

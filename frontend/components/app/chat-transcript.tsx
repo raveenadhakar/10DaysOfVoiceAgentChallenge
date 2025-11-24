@@ -1,6 +1,6 @@
 'use client';
 
-import { AnimatePresence, motion, type HTMLMotionProps } from 'motion/react';
+import { AnimatePresence, type HTMLMotionProps, motion } from 'motion/react';
 import { type ReceivedChatMessage } from '@livekit/components-react';
 import { ChatEntry } from '@/components/livekit/chat-entry';
 
@@ -21,16 +21,15 @@ const CONTAINER_MOTION_PROPS = {
       opacity: 1,
       transition: {
         delayChildren: 0.2,
-        ease: 'easeOut',
         duration: 0.3,
         staggerChildren: 0.1,
         staggerDirection: 1,
       },
     },
   },
-  initial: 'hidden',
-  animate: 'visible',
-  exit: 'hidden',
+  initial: 'hidden' as const,
+  animate: 'visible' as const,
+  exit: 'hidden' as const,
 };
 
 const MESSAGE_MOTION_PROPS = {

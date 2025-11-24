@@ -20,20 +20,21 @@ export interface AppConfig {
 }
 
 export const APP_CONFIG_DEFAULTS: AppConfig = {
-  companyName: 'LiveKit',
-  pageTitle: 'LiveKit Voice Agent',
-  pageDescription: 'A voice agent built with LiveKit',
+  companyName: 'Wellness Companion',
+  pageTitle: 'AI Wellness Companion',
+  pageDescription:
+    'Your supportive AI companion for daily wellness check-ins and mental health support',
 
   supportsChatInput: true,
-  supportsVideoInput: true,
-  supportsScreenShare: true,
+  supportsVideoInput: false,
+  supportsScreenShare: false,
   isPreConnectBufferEnabled: true,
 
-  logo: '/lk-logo.svg',
-  accent: '#002cf2',
-  logoDark: '/lk-logo-dark.svg',
-  accentDark: '#1fd5f9',
-  startButtonText: 'Start call',
+  logo: '/wellness-logo.svg',
+  accent: '#3b82f6',
+  logoDark: '/wellness-logo-dark.svg',
+  accentDark: '#8b5cf6',
+  startButtonText: 'Begin Wellness Check-in',
 
   // for LiveKit Cloud Sandbox
   sandboxId: undefined,

@@ -1,0 +1,24 @@
+<svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="gradient-dark" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#60a5fa;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#a78bfa;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background circle -->
+  <circle cx="50" cy="50" r="45" fill="url(#gradient-dark)" opacity="0.2"/>
+  
+  <!-- Heart shape -->
+  <path d="M50 75 C35 60, 20 45, 20 35 C20 25, 30 20, 40 25 C45 27, 50 30, 50 30 C50 30, 55 27, 60 25 C70 20, 80 25, 80 35 C80 45, 65 60, 50 75 Z" fill="url(#gradient-dark)"/>
+  
+  <!-- Wellness leaf -->
+  <path d="M35 40 Q30 35, 35 30 Q40 35, 35 40" fill="#34d399" opacity="0.9"/>
+  <path d="M65 40 Q70 35, 65 30 Q60 35, 65 40" fill="#34d399" opacity="0.9"/>
+  
+  <!-- Sparkles -->
+  <circle cx="25" cy="25" r="2" fill="#fde047"/>
+  <circle cx="75" cy="25" r="2" fill="#fde047"/>
+  <circle cx="25" cy="75" r="2" fill="#fde047"/>
+  <circle cx="75" cy="75" r="2" fill="#fde047"/>
+</svg>
