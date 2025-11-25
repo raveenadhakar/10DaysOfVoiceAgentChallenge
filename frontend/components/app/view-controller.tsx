@@ -1,14 +1,12 @@
 'use client';
 
-import { useRef } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
-import { useRoomContext } from '@livekit/components-react';
 import { useSession } from '@/components/app/session-provider';
-import { SessionView } from '@/components/app/session-view';
+import { TutorSessionView } from '@/components/app/tutor-session-view';
 import { WelcomeView } from '@/components/app/welcome-view';
 
 const MotionWelcomeView = motion.create(WelcomeView);
-const MotionSessionView = motion.create(SessionView);
+const MotionTutorSessionView = motion.create(TutorSessionView);
 
 const VIEW_MOTION_PROPS = {
   variants: {
@@ -28,19 +26,7 @@ const VIEW_MOTION_PROPS = {
 };
 
 export function ViewController() {
-  const room = useRoomContext();
-  const isSessionActiveRef = useRef(false);
   const { appConfig, isSessionActive, startSession } = useSession();
-
-  // animation handler holds a reference to stale isSessionActive value
-  isSessionActiveRef.current = isSessionActive;
-
-  // disconnect room after animation completes
-  const handleAnimationComplete = () => {
-    if (!isSessionActiveRef.current && room.state !== 'disconnected') {
-      room.disconnect();
-    }
-  };
 
   return (
     <AnimatePresence mode="wait">
@@ -53,13 +39,12 @@ export function ViewController() {
           onStartCall={startSession}
         />
       )}
-      {/* Session view */}
+      {/* Tutor session view */}
       {isSessionActive && (
-        <MotionSessionView
-          key="session-view"
+        <MotionTutorSessionView
+          key="tutor-session-view"
           {...VIEW_MOTION_PROPS}
           appConfig={appConfig}
-          onAnimationComplete={handleAnimationComplete}
         />
       )}
     </AnimatePresence>

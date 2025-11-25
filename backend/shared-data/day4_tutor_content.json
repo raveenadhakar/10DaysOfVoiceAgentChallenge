@@ -1,0 +1,26 @@
+[
+  {
+    "id": "variables",
+    "title": "Variables",
+    "summary": "Variables are containers that store data values. Think of them like labeled boxes where you can put information and retrieve it later. In programming, variables let you store numbers, text, or other data types and reuse them throughout your code. For example, you might store a user's name in a variable called 'username' so you can display it multiple times without typing it again.",
+    "sample_question": "What is a variable and why is it useful in programming?"
+  },
+  {
+    "id": "loops",
+    "title": "Loops",
+    "summary": "Loops are programming constructs that let you repeat a block of code multiple times. There are different types of loops: 'for' loops repeat a specific number of times, 'while' loops continue as long as a condition is true, and 'do-while' loops run at least once before checking the condition. Loops help you avoid writing repetitive code and make your programs more efficient.",
+    "sample_question": "Explain the difference between a for loop and a while loop."
+  },
+  {
+    "id": "functions",
+    "title": "Functions",
+    "summary": "Functions are reusable blocks of code that perform specific tasks. They take inputs (called parameters), process them, and often return a result. Functions help organize your code, make it more readable, and allow you to reuse the same logic in multiple places. Think of a function like a recipe - you give it ingredients (parameters) and it produces a dish (return value).",
+    "sample_question": "What are functions and how do they help organize code?"
+  },
+  {
+    "id": "conditionals",
+    "title": "Conditionals",
+    "summary": "Conditionals are statements that allow your program to make decisions based on different conditions. The most common conditional is the 'if' statement, which executes code only when a certain condition is true. You can also use 'else' for alternative actions and 'else if' for multiple conditions. Conditionals make your programs dynamic and responsive to different situations.",
+    "sample_question": "How do if-else statements help programs make decisions?"
+  }
+]

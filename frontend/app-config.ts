@@ -20,21 +20,21 @@ export interface AppConfig {
 }
 
 export const APP_CONFIG_DEFAULTS: AppConfig = {
-  companyName: 'Wellness Companion',
-  pageTitle: 'AI Wellness Companion',
+  companyName: 'Teach-the-Tutor',
+  pageTitle: 'AI Active Recall Coach',
   pageDescription:
-    'Your supportive AI companion for daily wellness check-ins and mental health support',
+    'Learn programming concepts through active recall with your AI tutor. Learn, Quiz, and Teach Back!',
 
   supportsChatInput: true,
   supportsVideoInput: false,
   supportsScreenShare: false,
   isPreConnectBufferEnabled: true,
 
-  logo: '/wellness-logo.svg',
-  accent: '#3b82f6',
-  logoDark: '/wellness-logo-dark.svg',
-  accentDark: '#8b5cf6',
-  startButtonText: 'Begin Wellness Check-in',
+  logo: '/lk-logo.svg',
+  accent: '#10b981',
+  logoDark: '/lk-logo-dark.svg',
+  accentDark: '#34d399',
+  startButtonText: 'Start Learning Session',
 
   // for LiveKit Cloud Sandbox
   sandboxId: undefined,

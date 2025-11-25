@@ -566,3 +566,60 @@ Step 4: Post the video on LinkedIn with a description of what you did for the ta
 Once your agent is running and your LinkedIn post is live, you’ve completed Day 3.
 
 - [x] 5. Create a frontend for the Wellness Agent ans create something innovative and error free
+
+
+- [x] 6.Complete the frontend and backend for this , you can comment out previous wellness agent and remove unnecessary files or folders ,Day 4 – Teach-the-Tutor: Active Recall Coach
+
+
+
+
+For Day 4, you’ll turn the agent into an active recall coach that learns from the user and tracks concept-level mastery as the user teaches concepts back to it.
+
+The core idea: the best way to learn is to teach – so the agent explains topics, quizzes you, then asks you to explain them back and scores how well you did.
+
+Primary Goal (Required)
+Keep this simple and focused: build a “Teach-the-Tutor” experience with three modes using a small content file.
+
+Three learning modes
+
+learn – the agent explains a concept. (With Murf Falcon Voice - "Matthew")
+quiz – the agent asks you questions. (With Murf Falcon Voice - "Alicia" )
+teach_back – the agent asks you to explain the concept back (and gives basic qualitative feedback). (With Murf Falcon Voice - "Ken")
+Small course content file
+
+Add a small JSON file (e.g. shared-data/day4_tutor_content.json) with a few concepts:
+[
+  {
+    "id": "variables",
+    "title": "Variables",
+    "summary": "Variables store values so you can reuse them later...",
+    "sample_question": "What is a variable and why is it useful?"
+  },
+  {
+    "id": "loops",
+    "title": "Loops",
+    "summary": "Loops let you repeat an action multiple times...",
+    "sample_question": "Explain the difference between a for loop and a while loop."
+  }
+]
+Use this file to:
+
+Explain concepts in Learn mode (via summary).
+Pick basic quiz / teach-back prompts (via sample_question).
+You complete Day 4 when:
+
+The agent first greets the user, asks for their preferred learning mode, and then connects them to the correct voice agent.
+All three modes — learn, quiz, and teach_back — are fully supported and driven by your JSON content.
+The user can switch between learning modes at any time by simply asking to switch.
+In each mode, the agent correctly uses the content file: explaining in learn, asking questions in quiz, and prompting the user to teach back in teach_back.
+Resources:
+https://docs.livekit.io/agents/build/agents-handoffs/#tool-handoff
+https://docs.livekit.io/agents/build/agents-handoffs/#context-preservation
+https://github.com/livekit-examples/python-agents-examples/blob/main/complex-agents/medical_office_triage/triage.py
+
+Step 1: You only need the primary goal to complete Day 4;.
+Step 2: Successfully connect to the Teach-the-Tutor: Active Recall Coach in your browser and use all the three learning modes (learn, quiz and teach_back)
+Step 3: Record a short video of your session with the agent using all the three learning modes.
+Step 4: you are building voice agent using the fastest TTS API - Murf Falcon.
+
+- [ ] 7. Create the frontend for test-tutor agent ![frontend not changed](image-1.png) frontned not changed yet completely
