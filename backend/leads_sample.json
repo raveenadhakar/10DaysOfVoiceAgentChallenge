@@ -1,0 +1,43 @@
+{
+  "leads": [
+    {
+      "name": "Rahul Sharma",
+      "company": "TechStart India",
+      "email": "rahul@techstart.in",
+      "role": "Founder",
+      "use_case": "ecommerce payment gateway for online store",
+      "team_size": "10-50",
+      "timeline": "now",
+      "questions_asked": [
+        "What does Razorpay do?",
+        "What are your pricing fees?",
+        "Do you support UPI payments?"
+      ],
+      "conversation_summary": "Rahul Sharma - Founder at TechStart India - interested in ecommerce payment gateway for online store - looking to start immediately",
+      "call_complete": true,
+      "date": "2025-11-26",
+      "time": "14:30:45",
+      "timestamp": "2025-11-26T14:30:45.123456",
+      "questions_count": 3
+    },
+    {
+      "name": "Priya Patel",
+      "company": "EduLearn",
+      "email": "priya@edulearn.com",
+      "role": "Product Manager",
+      "use_case": "subscription billing for online courses",
+      "team_size": "1-10",
+      "timeline": "soon",
+      "questions_asked": [
+        "Can you handle recurring payments?",
+        "What's the setup time?"
+      ],
+      "conversation_summary": "Priya Patel - Product Manager at EduLearn - interested in subscription billing for online courses - planning to start soon",
+      "call_complete": true,
+      "date": "2025-11-26",
+      "time": "15:15:22",
+      "timestamp": "2025-11-26T15:15:22.654321",
+      "questions_count": 2
+    }
+  ]
+}

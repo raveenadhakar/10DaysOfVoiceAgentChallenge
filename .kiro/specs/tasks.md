@@ -623,3 +623,123 @@ Step 3: Record a short video of your session with the agent using all the three 
 Step 4: you are building voice agent using the fastest TTS API - Murf Falcon.
 
 - [ ] 7. Create the frontend for test-tutor agent ![frontend not changed](image-1.png) frontned not changed yet completely
+
+- [x] 8. Primary Goal – Simple FAQ SDR + Lead Capture
+
+
+
+
+
+Objective:
+Build a voice agent Sales Development Representative (SDR) that can answer basic company questions and then generate lead (potential customer details) and summary data at the end of the call.
+
+Tasks
+Pick a company
+
+Pick any Indian company/startup
+Gather basic info (copy+paste), FAQ and pricing detail (if available) of the company in suitable format. (Text/JSON)
+Set up the SDR persona (Prompt Designing)
+
+Make the assistant act as an SDR for a chosen company/brand
+It should:
+Greet the visitor warmly.
+Ask what brought them here and what they're working on.
+Keep the conversation focused on understanding the user’s needs.
+Use the FAQ to answer questions with Agent
+
+Load the provided company content. (prepared in Step 1)
+When the user asks product/company/pricing questions:
+Find relevant FAQ entries (even simple keyword search is fine).
+Answer based on that content (avoid making up details not in the FAQ).
+The agent should be able to handle questions like:
+“What does your product do?”
+“Do you have a free tier?”
+“Who is this for?”
+Collect lead information
+
+Decide on the key lead fields to collect, for example:
+Name
+Company
+Email
+Role
+Use case (what they want to use this for)
+Team size
+Timeline (now / soon / later)
+Make the agent naturally ask for these during the conversation.
+Store the answers in a JSON file as the user responds.
+Create an end-of-call summary
+
+Detect when the user is done (e.g. they say “That’s all”, “I’m done”, “Thanks”).
+Have the agent:
+Give a short verbal summary of the lead (who they are, what they want, rough timeline).
+Store the collected fields in a JSON file:
+Name, company, email
+Role
+Use case
+Team size
+Timeline
+MVP Completion Checklist
+You’ve finished the primary goal if:
+
+The agent clearly behaves like an SDR for a specific company/product.
+It can answer “what do you do / who is this for / pricing basics” using the FAQ content.
+It politely asks for and stores key lead details.
+Only the primary goal is required to complete the challenge.
+
+Resources:
+https://docs.livekit.io/agents/build/turns/vad/#prewarm (Hint - Load FAQ and preprocess)
+https://docs.livekit.io/agents/build/prompting/
+https://docs.livekit.io/agents/build/tools/
+https://github.com/livekit-examples/python-agents-examples/tree/main/rag (Advance example. You can just split the FAQ page into paragraph / JSON and do similarity search. Note - Pick any Indian company/startup)
+Advanced Goals (Optional, Higher Impact)
+These are optional extensions. Each one makes the project more impressive and closer to a real-world SDR assistant. Pick any that you like ( or all of them if you want to go all out ).
+
+Advanced Goal 1 – Mock Meeting Scheduler
+Objective:
+Let the SDR propose and “book” a meeting time into a fake calendar.
+
+Tasks:
+
+Prepare a list of available time slots (mock calendar data).
+When the user asks to book a demo or meeting:
+Offer a few available time options.
+Let the user pick a slot by voice.
+Confirm the chosen time back to the user.
+Keep track of the booked meeting details (date, time, lead name/email) in the to be used later.
+Resources:
+Google Calender MCP - https://mcp.composio.dev/googlecalendar
+Advanced Goal 2 – CRM-Style Call Notes & Qualification Score
+Objective:
+Generate structured notes and a simple qualification score from the conversation.
+
+Tasks:
+
+After the call ends, process the conversation transcript and extract:
+Key pain points.
+Whether budget was mentioned.
+Whether the caller seems like a decision maker, an influencer, or unknown.
+How clear/urgent the need is.
+Optionally refine the lead timeline (now / soon / later) you captured in the primary goal, or infer it if it wasn’t collected.
+An overall “fit score” (e.g. 0–100).
+Store these notes in a JSON file.
+Make the notes concise and readable, like something you’d paste into a CRM.
+Resources:
+https://docs.livekit.io/agents/build/prompting/
+https://docs.livekit.io/agents/build/nodes/#on-exit
+https://docs.livekit.io/agents/build/events/#conversation_item_added
+https://platform.openai.com/docs/guides/structured-outputs
+
+
+- [x] 9. desiign frontend according to Build a voice agent Sales Development Representative (SDR) that can answer basic company questions and then generate lead (potential customer details) and summary data at the end of the call.
+
+
+
+
+
+
+Tasks
+Pick a company
+
+Pick any Indian company/startup
+Gather basic info (copy+paste), FAQ and pricing detail (if available) of the company in suitable format. (Text/JSON)
+Set up the SDR persona (Prompt Designing)

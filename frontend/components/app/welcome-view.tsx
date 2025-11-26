@@ -50,16 +50,138 @@ function BookIcon() {
   );
 }
 
+function PaymentIcon() {
+  return (
+    <svg
+      width="64"
+      height="64"
+      viewBox="0 0 64 64"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className="mb-4 size-16 text-blue-600"
+    >
+      <rect
+        x="8"
+        y="16"
+        width="48"
+        height="32"
+        rx="4"
+        stroke="currentColor"
+        strokeWidth="3"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M8 24H56"
+        stroke="currentColor"
+        strokeWidth="3"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M16 36H24"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M32 36H40"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
 interface WelcomeViewProps {
   startButtonText: string;
   onStartCall: () => void;
+  mode?: 'tutor' | 'sdr';
 }
 
 export const WelcomeView = ({
   startButtonText,
   onStartCall,
+  mode = 'sdr',
   ref,
 }: React.ComponentProps<'div'> & WelcomeViewProps) => {
+  // SDR Mode Content
+  if (mode === 'sdr') {
+    return (
+      <div ref={ref}>
+        <section className="bg-background flex flex-col items-center justify-center text-center">
+          <PaymentIcon />
+
+          <h1 className="text-foreground mb-2 text-3xl font-bold">Razorpay</h1>
+          <h2 className="text-foreground mb-4 text-xl font-semibold text-blue-600">
+            India's Leading Payment Gateway
+          </h2>
+
+          <p className="text-foreground max-w-prose pt-1 leading-6 font-medium">
+            Connect with our AI-powered Sales Development Representative to learn about Razorpay's
+            payment solutions and explore how we can help your business grow.
+          </p>
+
+          <div className="mt-6 grid max-w-3xl grid-cols-1 gap-4 md:grid-cols-3">
+            <div className="rounded-lg bg-blue-50 p-4">
+              <div className="mb-2 text-2xl">💳</div>
+              <h3 className="font-semibold text-blue-700">Payment Gateway</h3>
+              <p className="text-sm text-blue-600">
+                Accept payments via 100+ modes including cards, UPI, and wallets
+              </p>
+            </div>
+            <div className="rounded-lg bg-indigo-50 p-4">
+              <div className="mb-2 text-2xl">🔄</div>
+              <h3 className="font-semibold text-indigo-700">Subscriptions</h3>
+              <p className="text-sm text-indigo-600">
+                Automate recurring billing and subscription management
+              </p>
+            </div>
+            <div className="rounded-lg bg-purple-50 p-4">
+              <div className="mb-2 text-2xl">🏪</div>
+              <h3 className="font-semibold text-purple-700">Marketplace</h3>
+              <p className="text-sm text-purple-600">
+                Split payments automatically for multi-vendor platforms
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-6 rounded-lg bg-gradient-to-r from-blue-50 to-indigo-50 p-4 max-w-2xl">
+            <h3 className="font-semibold text-gray-900 mb-2">What to Expect:</h3>
+            <ul className="text-sm text-gray-700 space-y-1 text-left">
+              <li>✓ Learn about Razorpay's products and pricing</li>
+              <li>✓ Get answers to your payment solution questions</li>
+              <li>✓ Share your business needs and use case</li>
+              <li>✓ Receive personalized recommendations</li>
+            </ul>
+          </div>
+
+          <Button variant="primary" size="lg" onClick={onStartCall} className="mt-6 w-64 font-mono">
+            {startButtonText}
+          </Button>
+        </section>
+
+        <div className="fixed bottom-5 left-0 flex w-full items-center justify-center">
+          <p className="text-muted-foreground max-w-prose pt-1 text-xs leading-5 font-normal text-pretty md:text-sm">
+            Powered by LiveKit Voice AI •{' '}
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://razorpay.com"
+              className="underline"
+            >
+              Visit Razorpay.com
+            </a>
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  // Tutor Mode Content (original)
   return (
     <div ref={ref}>
       <section className="bg-background flex flex-col items-center justify-center text-center">

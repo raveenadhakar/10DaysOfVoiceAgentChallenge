@@ -20,10 +20,10 @@ export interface AppConfig {
 }
 
 export const APP_CONFIG_DEFAULTS: AppConfig = {
-  companyName: 'Teach-the-Tutor',
-  pageTitle: 'AI Active Recall Coach',
+  companyName: 'Razorpay SDR',
+  pageTitle: 'AI Sales Development Representative',
   pageDescription:
-    'Learn programming concepts through active recall with your AI tutor. Learn, Quiz, and Teach Back!',
+    'Connect with our AI-powered SDR to learn about Razorpay payment solutions and explore how we can help your business.',
 
   supportsChatInput: true,
   supportsVideoInput: false,
@@ -31,10 +31,10 @@ export const APP_CONFIG_DEFAULTS: AppConfig = {
   isPreConnectBufferEnabled: true,
 
   logo: '/lk-logo.svg',
-  accent: '#10b981',
+  accent: '#2563eb',
   logoDark: '/lk-logo-dark.svg',
-  accentDark: '#34d399',
-  startButtonText: 'Start Learning Session',
+  accentDark: '#3b82f6',
+  startButtonText: 'Start Conversation',
 
   // for LiveKit Cloud Sandbox
   sandboxId: undefined,

@@ -1,0 +1,121 @@
+{
+  "company": {
+    "name": "Razorpay",
+    "tagline": "India's Leading Payment Gateway",
+    "description": "Razorpay is a full-stack financial solutions company that enables businesses to accept, process, and disburse payments with its product suite. We provide a fast, affordable, and secure way for merchants, schools, ecommerce and other companies to accept and disburse payments online.",
+    "founded": "2014",
+    "headquarters": "Bangalore, India",
+    "website": "https://razorpay.com"
+  },
+  "products": [
+    {
+      "name": "Payment Gateway",
+      "description": "Accept payments via 100+ payment modes including Credit Card, Debit Card, Net Banking, UPI, and popular wallets. Industry-leading success rates with instant settlements.",
+      "key_features": ["100+ payment modes", "Instant settlements", "99.99% uptime", "Smart routing"]
+    },
+    {
+      "name": "Payment Links",
+      "description": "Create and share payment links via SMS, email, messenger, chatbot etc. and get paid immediately. No coding required.",
+      "key_features": ["No coding required", "Share via any channel", "Instant payments", "Track all payments"]
+    },
+    {
+      "name": "Payment Pages",
+      "description": "Create beautiful payment pages in minutes without any coding. Collect payments for products, services, or donations.",
+      "key_features": ["No website needed", "Mobile optimized", "Customizable", "Quick setup"]
+    },
+    {
+      "name": "Subscriptions",
+      "description": "Automate recurring billing and subscription management. Support for multiple billing cycles and payment retries.",
+      "key_features": ["Automated billing", "Smart retries", "Dunning management", "Customer portal"]
+    },
+    {
+      "name": "Route",
+      "description": "Split payments automatically to multiple accounts. Perfect for marketplaces and platforms.",
+      "key_features": ["Automatic splits", "Instant settlements", "Flexible routing", "Reconciliation"]
+    }
+  ],
+  "faq": [
+    {
+      "question": "What does Razorpay do?",
+      "answer": "Razorpay is a complete payment solution for businesses in India. We help you accept payments online through credit cards, debit cards, UPI, net banking, and wallets. We also offer subscription management, payment links, and marketplace payment solutions.",
+      "keywords": ["payment", "gateway", "accept payments", "online payments"]
+    },
+    {
+      "question": "Who is Razorpay for?",
+      "answer": "Razorpay is perfect for any business that needs to accept payments online - from small startups and freelancers to large enterprises. We serve ecommerce stores, SaaS companies, educational institutions, NGOs, marketplaces, and more. If you need to collect money online, we can help.",
+      "keywords": ["target audience", "customers", "who uses", "businesses"]
+    },
+    {
+      "question": "Do you have a free tier or trial?",
+      "answer": "Yes! Razorpay has no setup fees or annual maintenance charges. You only pay a small transaction fee when you receive payments. You can sign up for free and start accepting payments immediately. There's no minimum commitment.",
+      "keywords": ["free", "trial", "pricing", "cost", "fees"]
+    },
+    {
+      "question": "What are your pricing and transaction fees?",
+      "answer": "Our standard pricing is 2% per transaction for domestic payments (capped at ₹5000 per transaction). International card payments are charged at 3%. There are no setup fees, no annual fees, and no hidden charges. We also offer custom pricing for high-volume businesses.",
+      "keywords": ["pricing", "fees", "cost", "charges", "transaction fee"]
+    },
+    {
+      "question": "How quickly can I get started?",
+      "answer": "You can start accepting payments in less than 15 minutes! Simply sign up, complete your KYC verification, integrate our payment gateway (we have plugins for all major platforms), and you're ready to go. Our team provides full support during onboarding.",
+      "keywords": ["setup time", "onboarding", "getting started", "integration"]
+    },
+    {
+      "question": "What payment methods do you support?",
+      "answer": "We support 100+ payment methods including all major credit and debit cards (Visa, Mastercard, Amex, RuPay), UPI (Google Pay, PhonePe, Paytm), net banking from 50+ banks, and popular wallets like Paytm, Mobikwik, and Amazon Pay. We also support international cards and EMI options.",
+      "keywords": ["payment methods", "payment modes", "UPI", "cards", "wallets"]
+    },
+    {
+      "question": "Is Razorpay secure and compliant?",
+      "answer": "Absolutely! We are PCI-DSS Level 1 certified, which is the highest level of payment security. We're also compliant with RBI guidelines and use bank-grade encryption. Your customers' payment data is completely secure with us.",
+      "keywords": ["security", "compliance", "safe", "PCI-DSS", "encryption"]
+    },
+    {
+      "question": "Do you provide technical support?",
+      "answer": "Yes! We provide 24/7 technical support via email, phone, and chat. We also have extensive documentation, integration guides, and a developer community. Our support team typically responds within minutes.",
+      "keywords": ["support", "help", "technical support", "customer service"]
+    },
+    {
+      "question": "Can I use Razorpay for subscriptions and recurring payments?",
+      "answer": "Yes! Our Subscriptions product is built specifically for recurring billing. You can set up daily, weekly, monthly, or custom billing cycles. We handle automatic retries, dunning management, and provide a customer portal for subscription management.",
+      "keywords": ["subscriptions", "recurring", "billing", "SaaS"]
+    },
+    {
+      "question": "Do you support international payments?",
+      "answer": "Yes, we support international card payments from 150+ countries. You can accept payments in multiple currencies and we handle currency conversion automatically. This is perfect if you have customers outside India.",
+      "keywords": ["international", "global", "foreign", "currency", "overseas"]
+    },
+    {
+      "question": "What about settlement times?",
+      "answer": "We offer instant settlements! You can get your money in your bank account within seconds of receiving a payment. Standard settlements are T+2 days (2 working days). Instant settlements are available for verified businesses.",
+      "keywords": ["settlement", "payout", "money transfer", "bank transfer"]
+    },
+    {
+      "question": "Can Razorpay work for marketplaces?",
+      "answer": "Absolutely! Our Route product is designed specifically for marketplaces and platforms. You can automatically split payments between multiple vendors, handle commissions, and manage payouts to sellers. It's perfect for multi-vendor platforms.",
+      "keywords": ["marketplace", "multi-vendor", "split payments", "platform"]
+    }
+  ],
+  "use_cases": [
+    {
+      "industry": "Ecommerce",
+      "description": "Accept payments on your online store with seamless checkout experience"
+    },
+    {
+      "industry": "SaaS",
+      "description": "Automate subscription billing and manage recurring revenue"
+    },
+    {
+      "industry": "Education",
+      "description": "Collect fees, course payments, and donations easily"
+    },
+    {
+      "industry": "Marketplace",
+      "description": "Split payments automatically between vendors and manage commissions"
+    },
+    {
+      "industry": "Freelancers",
+      "description": "Send payment links to clients and get paid instantly"
+    }
+  ]
+}
