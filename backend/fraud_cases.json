@@ -1,0 +1,64 @@
+{
+  "fraud_cases": [
+    {
+      "userName": "John",
+      "securityIdentifier": "12345",
+      "cardEnding": "4242",
+      "transactionAmount": "$1,247.99",
+      "transactionName": "ABC Industry",
+      "transactionTime": "November 26, 2025 at 11:42 PM",
+      "transactionCategory": "e-commerce",
+      "transactionSource": "alibaba.com",
+      "transactionLocation": "Shanghai, China",
+      "securityQuestion": "What is your mother's maiden name?",
+      "securityAnswer": "Smith",
+      "status": "confirmed_safe",
+      "outcome": "Customer confirmed the transaction as legitimate. No action required."
+    },
+    {
+      "userName": "Sarah",
+      "securityIdentifier": "67890",
+      "cardEnding": "8888",
+      "transactionAmount": "$3,599.00",
+      "transactionName": "Luxury Electronics Store",
+      "transactionTime": "November 27, 2025 at 2:15 AM",
+      "transactionCategory": "electronics",
+      "transactionSource": "techgadgets-overseas.com",
+      "transactionLocation": "Lagos, Nigeria",
+      "securityQuestion": "What city were you born in?",
+      "securityAnswer": "Boston",
+      "status": "pending_review",
+      "outcome": null
+    },
+    {
+      "userName": "Michael",
+      "securityIdentifier": "24680",
+      "cardEnding": "1234",
+      "transactionAmount": "$899.50",
+      "transactionName": "Premium Fashion Outlet",
+      "transactionTime": "November 26, 2025 at 8:30 PM",
+      "transactionCategory": "retail",
+      "transactionSource": "fashiondeals.ru",
+      "transactionLocation": "Moscow, Russia",
+      "securityQuestion": "What was your first pet's name?",
+      "securityAnswer": "Buddy",
+      "status": "pending_review",
+      "outcome": null
+    },
+    {
+      "userName": "Emily",
+      "securityIdentifier": "13579",
+      "cardEnding": "5678",
+      "transactionAmount": "$2,150.00",
+      "transactionName": "International Travel Services",
+      "transactionTime": "November 27, 2025 at 4:45 AM",
+      "transactionCategory": "travel",
+      "transactionSource": "cheapflights-global.net",
+      "transactionLocation": "Bangkok, Thailand",
+      "securityQuestion": "What is your favorite color?",
+      "securityAnswer": "Blue",
+      "status": "pending_review",
+      "outcome": null
+    }
+  ]
+}
