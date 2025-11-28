@@ -16,6 +16,21 @@
       "outcome": "Customer confirmed the transaction as legitimate. No action required."
     },
     {
+      "userName": "Sunny",
+      "securityIdentifier": "12346",
+      "cardEnding": "4243",
+      "transactionAmount": "$1,247.99",
+      "transactionName": "ABC Industry",
+      "transactionTime": "November 26, 2025 at 11:42 PM",
+      "transactionCategory": "e-commerce",
+      "transactionSource": "alibaba.com",
+      "transactionLocation": "Shanghai, China",
+      "securityQuestion": "What is your mother's maiden name?",
+      "securityAnswer": "Honey",
+      "status": "confirmed_safe",
+      "outcome": "Customer confirmed the transaction as legitimate. No action required."
+    },
+    {
       "userName": "Sarah",
       "securityIdentifier": "67890",
       "cardEnding": "8888",

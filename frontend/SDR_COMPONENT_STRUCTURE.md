@@ -96,14 +96,14 @@ SDRSessionView Component
 
 ```typescript
 // Component State
-const [leadData, setLeadData] = useState<LeadData>({})
-const [callComplete, setCallComplete] = useState(false)
-const [questionsAsked, setQuestionsAsked] = useState(0)
-const [lastUpdate, setLastUpdate] = useState<string>('')
+const [leadData, setLeadData] = useState<LeadData>({});
+const [callComplete, setCallComplete] = useState(false);
+const [questionsAsked, setQuestionsAsked] = useState(0);
+const [lastUpdate, setLastUpdate] = useState<string>('');
 
 // Derived State
-const completionPercentage = getCompletionPercentage()
-const missingFields = getMissingFields()
+const completionPercentage = getCompletionPercentage();
+const missingFields = getMissingFields();
 ```
 
 ## Styling Architecture
@@ -177,18 +177,18 @@ ViewController
 // Data Channel Message Handler
 useEffect(() => {
   if (!message) return;
-  
+
   const data = JSON.parse(decode(message.payload));
-  
-  switch(data.type) {
+
+  switch (data.type) {
     case 'lead_update':
-      setLeadData(prev => ({ ...prev, ...data.lead }));
+      setLeadData((prev) => ({ ...prev, ...data.lead }));
       setLastUpdate(new Date().toLocaleTimeString());
       break;
-      
+
     case 'call_complete':
       setCallComplete(true);
-      setLeadData(prev => ({ ...prev, ...data.lead }));
+      setLeadData((prev) => ({ ...prev, ...data.lead }));
       break;
   }
 }, [message]);
@@ -239,19 +239,14 @@ Real-time Updates
 const requiredFields = ['name', 'email', 'use_case'];
 
 // Completion Check
-const isComplete = requiredFields.every(
-  field => leadData[field]
-);
+const isComplete = requiredFields.every((field) => leadData[field]);
 
 // Progress Calculation
-const progress = requiredFields.filter(
-  field => leadData[field]
-).length / requiredFields.length * 100;
+const progress =
+  (requiredFields.filter((field) => leadData[field]).length / requiredFields.length) * 100;
 
 // Missing Fields
-const missing = requiredFields.filter(
-  field => !leadData[field]
-);
+const missing = requiredFields.filter((field) => !leadData[field]);
 ```
 
 ## Timeline Badge Logic
@@ -259,21 +254,21 @@ const missing = requiredFields.filter(
 ```typescript
 // Timeline Color Mapping
 const timelineColors = {
-  'now': {
+  now: {
     bg: 'bg-red-100',
     text: 'text-red-700',
-    label: 'NOW'
+    label: 'NOW',
   },
-  'soon': {
+  soon: {
     bg: 'bg-yellow-100',
     text: 'text-yellow-700',
-    label: 'SOON'
+    label: 'SOON',
   },
-  'later': {
+  later: {
     bg: 'bg-gray-100',
     text: 'text-gray-700',
-    label: 'LATER'
-  }
+    label: 'LATER',
+  },
 };
 ```
 

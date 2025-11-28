@@ -1,14 +1,12 @@
-'use client';
+ 'use client';
 
 import { AnimatePresence, motion } from 'motion/react';
+import { FoodSessionView } from '@/components/app/food-session-view';
 import { useSession } from '@/components/app/session-provider';
-import { TutorSessionView } from '@/components/app/tutor-session-view';
-import { SDRSessionView } from '@/components/app/sdr-session-view';
 import { WelcomeView } from '@/components/app/welcome-view';
 
 const MotionWelcomeView = motion.create(WelcomeView);
-const MotionTutorSessionView = motion.create(TutorSessionView);
-const MotionSDRSessionView = motion.create(SDRSessionView);
+const MotionFoodSessionView = motion.create(FoodSessionView);
 
 const VIEW_MOTION_PROPS = {
   variants: {
@@ -30,9 +28,8 @@ const VIEW_MOTION_PROPS = {
 export function ViewController() {
   const { appConfig, isSessionActive, startSession } = useSession();
 
-  // Determine which session view to show based on app config
-  const isSDRMode = appConfig.companyName === 'Razorpay SDR';
-  const mode = isSDRMode ? 'sdr' : 'tutor';
+  // Food ordering mode only
+  const mode = 'food';
 
   return (
     <AnimatePresence mode="wait">
@@ -46,18 +43,10 @@ export function ViewController() {
           mode={mode}
         />
       )}
-      {/* SDR session view */}
-      {isSessionActive && isSDRMode && (
-        <MotionSDRSessionView
-          key="sdr-session-view"
-          {...VIEW_MOTION_PROPS}
-          appConfig={appConfig}
-        />
-      )}
-      {/* Tutor session view */}
-      {isSessionActive && !isSDRMode && (
-        <MotionTutorSessionView
-          key="tutor-session-view"
+      {/* Food ordering session view */}
+      {isSessionActive && (
+        <MotionFoodSessionView
+          key="food-session-view"
           {...VIEW_MOTION_PROPS}
           appConfig={appConfig}
         />

@@ -1,0 +1,192 @@
+{
+  "catalog": {
+    "groceries": [
+      {
+        "id": "bread_001",
+        "name": "Whole Wheat Bread",
+        "category": "groceries",
+        "price": 3.49,
+        "brand": "Nature's Own",
+        "size": "20 oz",
+        "units": "loaf",
+        "tags": ["whole grain", "fiber"]
+      },
+      {
+        "id": "milk_001",
+        "name": "Organic Milk",
+        "category": "groceries",
+        "price": 4.99,
+        "brand": "Horizon",
+        "size": "64 fl oz",
+        "units": "carton",
+        "tags": ["organic", "dairy"]
+      },
+      {
+        "id": "eggs_001",
+        "name": "Large Eggs",
+        "category": "groceries",
+        "price": 3.29,
+        "brand": "Farm Fresh",
+        "size": "12 count",
+        "units": "dozen",
+        "tags": ["protein", "farm fresh"]
+      },
+      {
+        "id": "butter_001",
+        "name": "Unsalted Butter",
+        "category": "groceries",
+        "price": 4.79,
+        "brand": "Land O'Lakes",
+        "size": "16 oz",
+        "units": "pack",
+        "tags": ["dairy", "unsalted"]
+      },
+      {
+        "id": "peanut_butter_001",
+        "name": "Creamy Peanut Butter",
+        "category": "groceries",
+        "price": 5.99,
+        "brand": "Jif",
+        "size": "40 oz",
+        "units": "jar",
+        "tags": ["protein", "creamy"]
+      },
+      {
+        "id": "pasta_001",
+        "name": "Spaghetti Pasta",
+        "category": "groceries",
+        "price": 1.99,
+        "brand": "Barilla",
+        "size": "16 oz",
+        "units": "box",
+        "tags": ["italian", "wheat"]
+      },
+      {
+        "id": "pasta_sauce_001",
+        "name": "Marinara Sauce",
+        "category": "groceries",
+        "price": 2.49,
+        "brand": "Rao's",
+        "size": "24 oz",
+        "units": "jar",
+        "tags": ["italian", "tomato", "organic"]
+      },
+      {
+        "id": "cheese_001",
+        "name": "Parmesan Cheese",
+        "category": "groceries",
+        "price": 6.99,
+        "brand": "Kraft",
+        "size": "8 oz",
+        "units": "container",
+        "tags": ["dairy", "italian", "grated"]
+      }
+    ],
+    "snacks": [
+      {
+        "id": "chips_001",
+        "name": "Classic Potato Chips",
+        "category": "snacks",
+        "price": 3.99,
+        "brand": "Lay's",
+        "size": "10 oz",
+        "units": "bag",
+        "tags": ["salty", "crispy"]
+      },
+      {
+        "id": "cookies_001",
+        "name": "Chocolate Chip Cookies",
+        "category": "snacks",
+        "price": 4.49,
+        "brand": "Pepperidge Farm",
+        "size": "7.25 oz",
+        "units": "package",
+        "tags": ["sweet", "chocolate"]
+      },
+      {
+        "id": "nuts_001",
+        "name": "Mixed Nuts",
+        "category": "snacks",
+        "price": 7.99,
+        "brand": "Planters",
+        "size": "16 oz",
+        "units": "container",
+        "tags": ["protein", "healthy", "mixed"]
+      },
+      {
+        "id": "crackers_001",
+        "name": "Whole Grain Crackers",
+        "category": "snacks",
+        "price": 3.79,
+        "brand": "Triscuit",
+        "size": "9 oz",
+        "units": "box",
+        "tags": ["whole grain", "crispy"]
+      }
+    ],
+    "prepared_food": [
+      {
+        "id": "pizza_001",
+        "name": "Margherita Pizza",
+        "category": "prepared_food",
+        "price": 12.99,
+        "brand": "Tony's Kitchen",
+        "size": "12 inch",
+        "units": "pizza",
+        "tags": ["italian", "vegetarian", "fresh"]
+      },
+      {
+        "id": "sandwich_001",
+        "name": "Turkey Club Sandwich",
+        "category": "prepared_food",
+        "price": 8.99,
+        "brand": "Deli Fresh",
+        "size": "full",
+        "units": "sandwich",
+        "tags": ["protein", "fresh", "club"]
+      },
+      {
+        "id": "salad_001",
+        "name": "Caesar Salad",
+        "category": "prepared_food",
+        "price": 7.49,
+        "brand": "Garden Fresh",
+        "size": "large",
+        "units": "bowl",
+        "tags": ["healthy", "fresh", "vegetarian"]
+      },
+      {
+        "id": "soup_001",
+        "name": "Chicken Noodle Soup",
+        "category": "prepared_food",
+        "price": 5.99,
+        "brand": "Homestyle",
+        "size": "16 oz",
+        "units": "container",
+        "tags": ["comfort", "protein", "warm"]
+      }
+    ]
+  },
+  "recipes": {
+    "peanut_butter_sandwich": {
+      "name": "Peanut Butter Sandwich",
+      "ingredients": ["bread_001", "peanut_butter_001"],
+      "description": "Classic peanut butter sandwich"
+    },
+    "pasta_for_two": {
+      "name": "Pasta for Two People",
+      "ingredients": ["pasta_001", "pasta_sauce_001", "cheese_001"],
+      "description": "Simple pasta dinner for two"
+    },
+    "breakfast_basics": {
+      "name": "Basic Breakfast",
+      "ingredients": ["eggs_001", "bread_001", "butter_001"],
+      "description": "Simple breakfast with eggs and toast"
+    },
+    "grilled_cheese": {
+      "name": "Grilled Cheese Sandwich",
+      "ingredients": ["bread_001", "cheese_001", "butter_001"],
+      "description": "Classic grilled cheese sandwich"
+    }
+  }
+}

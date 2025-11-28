@@ -1,16 +1,19 @@
 # SDR Frontend Implementation
 
 ## Overview
+
 This document describes the frontend implementation for the Razorpay SDR (Sales Development Representative) voice agent.
 
 ## Components Created
 
 ### 1. SDR Session View (`sdr-session-view.tsx`)
+
 A dedicated session view component for the SDR agent that displays:
 
 #### Left Sidebar Features:
+
 - **Header**: Razorpay branding with gradient background
-- **Lead Capture Progress**: 
+- **Lead Capture Progress**:
   - Visual progress bar showing completion percentage
   - Based on required fields: name, email, and use case
   - "Call Complete" indicator when conversation ends
@@ -27,7 +30,7 @@ A dedicated session view component for the SDR agent that displays:
     - SOON: Yellow badge (near-term)
     - LATER: Gray badge (future)
 
-- **Missing Fields Alert**: 
+- **Missing Fields Alert**:
   - Yellow alert box showing what information is still needed
   - Only visible when call is not complete
 
@@ -36,14 +39,17 @@ A dedicated session view component for the SDR agent that displays:
   - Last update timestamp
 
 #### Main Area:
+
 - Standard SessionView component for voice interaction
 - Chat transcript
 - Audio controls
 
 ### 2. Updated Welcome View (`welcome-view.tsx`)
+
 Enhanced to support both SDR and Tutor modes:
 
 #### SDR Mode Features:
+
 - **Razorpay Branding**: Payment icon and company name
 - **Product Showcase**: Three key products displayed:
   - Payment Gateway (100+ payment modes)
@@ -54,18 +60,23 @@ Enhanced to support both SDR and Tutor modes:
 - **Footer**: Razorpay website link
 
 #### Tutor Mode Features:
+
 - Original tutor interface preserved
 - Book icon and learning modes display
 
 ### 3. Updated View Controller (`view-controller.tsx`)
+
 Enhanced routing logic:
+
 - Detects mode based on `appConfig.companyName`
 - Routes to SDRSessionView when in SDR mode
 - Routes to TutorSessionView when in Tutor mode
 - Passes appropriate mode prop to WelcomeView
 
 ### 4. Updated App Config (`app-config.ts`)
+
 Default configuration set for SDR mode:
+
 - Company name: "Razorpay SDR"
 - Page title: "AI Sales Development Representative"
 - Accent colors: Blue theme (#2563eb, #3b82f6)
@@ -74,6 +85,7 @@ Default configuration set for SDR mode:
 ## Data Flow
 
 ### Real-time Updates via Data Channel
+
 The SDR session view listens to the `sdr_session` data channel for updates:
 
 ```typescript
@@ -87,6 +99,7 @@ interface SDRData {
 ```
 
 ### Update Types:
+
 1. **`lead_update`**: Partial lead data updates
    - Merges new data with existing lead state
    - Updates timestamp
@@ -98,6 +111,7 @@ interface SDRData {
    - Shows completion indicator
 
 ### Lead Data Structure:
+
 ```typescript
 interface LeadData {
   name?: string;
@@ -113,6 +127,7 @@ interface LeadData {
 ## Visual Design
 
 ### Color Scheme:
+
 - **Primary**: Blue (#2563eb) - Trust and professionalism
 - **Secondary**: Indigo (#4f46e5) - Modern and tech-forward
 - **Success**: Green - Completed fields
@@ -120,11 +135,13 @@ interface LeadData {
 - **Urgent**: Red - "Now" timeline
 
 ### Layout:
+
 - **Sidebar Width**: 320px (80 Tailwind units)
 - **Responsive**: Sidebar scrolls independently
 - **Progress Indicators**: Visual feedback for all state changes
 
 ### Typography:
+
 - **Headers**: Bold, clear hierarchy
 - **Labels**: Uppercase, small, gray
 - **Values**: Medium weight, larger, dark
@@ -135,6 +152,7 @@ interface LeadData {
 The frontend expects the backend SDR agent to send updates via the LiveKit data channel:
 
 ### Example Backend Update:
+
 ```python
 # In SDRAgent class
 await self.room.local_participant.publish_data(
@@ -152,6 +170,7 @@ await self.room.local_participant.publish_data(
 ```
 
 ### Call Completion:
+
 ```python
 await self.room.local_participant.publish_data(
     json.dumps({
@@ -165,7 +184,7 @@ await self.room.local_participant.publish_data(
 
 ## User Experience Flow
 
-1. **Landing Page**: 
+1. **Landing Page**:
    - User sees Razorpay branding and product information
    - Clear explanation of what to expect
    - Single "Start Conversation" button
@@ -186,6 +205,7 @@ await self.room.local_participant.publish_data(
 To switch between SDR and Tutor modes, update `app-config.ts`:
 
 ### For SDR Mode:
+
 ```typescript
 export const APP_CONFIG_DEFAULTS: AppConfig = {
   companyName: 'Razorpay SDR',
@@ -195,6 +215,7 @@ export const APP_CONFIG_DEFAULTS: AppConfig = {
 ```
 
 ### For Tutor Mode:
+
 ```typescript
 export const APP_CONFIG_DEFAULTS: AppConfig = {
   companyName: 'Teach-the-Tutor',
@@ -207,7 +228,7 @@ export const APP_CONFIG_DEFAULTS: AppConfig = {
 
 Potential improvements for the SDR frontend:
 
-1. **Meeting Scheduler UI**: 
+1. **Meeting Scheduler UI**:
    - Calendar view for booking demos
    - Available time slots display
 
@@ -244,12 +265,14 @@ To test the SDR frontend:
 ## Customization
 
 ### Changing the Company:
+
 1. Update `app-config.ts` with new company name and branding
 2. Update `welcome-view.tsx` with new product information
 3. Update `sdr-session-view.tsx` header with new branding
 4. Update backend FAQ data in `shared-data/sdr_company_faq.json`
 
 ### Modifying Lead Fields:
+
 1. Update `LeadData` interface in `sdr-session-view.tsx`
 2. Add/remove field display components in the Lead Information section
 3. Update `getCompletionPercentage()` and `getMissingFields()` functions

@@ -92,7 +92,7 @@ export function SDRSessionView({ appConfig }: SDRSessionViewProps) {
         {/* Lead Progress */}
         <div className="border-b border-gray-200 bg-blue-50 p-4">
           <h3 className="mb-2 font-semibold text-gray-900">Lead Capture Progress</h3>
-          
+
           <div className="mb-2 flex justify-between text-sm">
             <span className="text-gray-600">Completion</span>
             <span className="font-semibold text-blue-600">{getCompletionPercentage()}%</span>
@@ -196,8 +196,8 @@ export function SDRSessionView({ appConfig }: SDRSessionViewProps) {
                       leadData.timeline === 'now'
                         ? 'bg-red-100 text-red-700'
                         : leadData.timeline === 'soon'
-                        ? 'bg-yellow-100 text-yellow-700'
-                        : 'bg-gray-100 text-gray-700'
+                          ? 'bg-yellow-100 text-yellow-700'
+                          : 'bg-gray-100 text-gray-700'
                     }`}
                   >
                     {leadData.timeline.toUpperCase()}
@@ -231,9 +231,7 @@ export function SDRSessionView({ appConfig }: SDRSessionViewProps) {
             <span className="font-semibold text-indigo-600">{questionsAsked}</span>
           </div>
           {lastUpdate && (
-            <div className="mt-2 text-xs text-gray-500">
-              Last update: {lastUpdate}
-            </div>
+            <div className="mt-2 text-xs text-gray-500">Last update: {lastUpdate}</div>
           )}
         </div>
       </div>

@@ -1,6 +1,6 @@
 import { Button } from '@/components/livekit/button';
 
-function BookIcon() {
+function FoodIcon() {
   return (
     <svg
       width="64"
@@ -8,10 +8,10 @@ function BookIcon() {
       viewBox="0 0 64 64"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className="mb-4 size-16 text-emerald-600"
+      className="mb-4 size-16 text-green-600"
     >
       <path
-        d="M8 8V52C8 53.0609 8.42143 54.0783 9.17157 54.8284C9.92172 55.5786 10.9391 56 12 56H52C53.0609 56 54.0783 55.5786 54.8284 54.8284C55.5786 54.0783 56 53.0609 56 52V12C56 10.9391 55.5786 9.92172 54.8284 9.17157C54.0783 8.42143 53.0609 8 52 8H16"
+        d="M8 16H56L52 48H12L8 16Z"
         stroke="currentColor"
         strokeWidth="3"
         strokeLinecap="round"
@@ -19,74 +19,16 @@ function BookIcon() {
         fill="none"
       />
       <path
-        d="M8 8C8 6.93913 8.42143 5.92172 9.17157 5.17157C9.92172 4.42143 10.9391 4 12 4H48"
+        d="M8 16L6 8H2"
         stroke="currentColor"
         strokeWidth="3"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
+      <circle cx="20" cy="56" r="4" stroke="currentColor" strokeWidth="3" fill="none" />
+      <circle cx="44" cy="56" r="4" stroke="currentColor" strokeWidth="3" fill="none" />
       <path
-        d="M16 20H44"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M16 28H44"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M16 36H36"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
-function PaymentIcon() {
-  return (
-    <svg
-      width="64"
-      height="64"
-      viewBox="0 0 64 64"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className="mb-4 size-16 text-blue-600"
-    >
-      <rect
-        x="8"
-        y="16"
-        width="48"
-        height="32"
-        rx="4"
-        stroke="currentColor"
-        strokeWidth="3"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M8 24H56"
-        stroke="currentColor"
-        strokeWidth="3"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M16 36H24"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M32 36H40"
+        d="M16 24H48"
         stroke="currentColor"
         strokeWidth="2"
         strokeLinecap="round"
@@ -99,138 +41,86 @@ function PaymentIcon() {
 interface WelcomeViewProps {
   startButtonText: string;
   onStartCall: () => void;
-  mode?: 'tutor' | 'sdr';
+  mode?: 'food';
 }
 
 export const WelcomeView = ({
   startButtonText,
   onStartCall,
-  mode = 'sdr',
+  mode = 'food',
   ref,
 }: React.ComponentProps<'div'> & WelcomeViewProps) => {
-  // SDR Mode Content
-  if (mode === 'sdr') {
-    return (
-      <div ref={ref}>
-        <section className="bg-background flex flex-col items-center justify-center text-center">
-          <PaymentIcon />
-
-          <h1 className="text-foreground mb-2 text-3xl font-bold">Razorpay</h1>
-          <h2 className="text-foreground mb-4 text-xl font-semibold text-blue-600">
-            India's Leading Payment Gateway
-          </h2>
-
-          <p className="text-foreground max-w-prose pt-1 leading-6 font-medium">
-            Connect with our AI-powered Sales Development Representative to learn about Razorpay's
-            payment solutions and explore how we can help your business grow.
-          </p>
-
-          <div className="mt-6 grid max-w-3xl grid-cols-1 gap-4 md:grid-cols-3">
-            <div className="rounded-lg bg-blue-50 p-4">
-              <div className="mb-2 text-2xl">💳</div>
-              <h3 className="font-semibold text-blue-700">Payment Gateway</h3>
-              <p className="text-sm text-blue-600">
-                Accept payments via 100+ modes including cards, UPI, and wallets
-              </p>
-            </div>
-            <div className="rounded-lg bg-indigo-50 p-4">
-              <div className="mb-2 text-2xl">🔄</div>
-              <h3 className="font-semibold text-indigo-700">Subscriptions</h3>
-              <p className="text-sm text-indigo-600">
-                Automate recurring billing and subscription management
-              </p>
-            </div>
-            <div className="rounded-lg bg-purple-50 p-4">
-              <div className="mb-2 text-2xl">🏪</div>
-              <h3 className="font-semibold text-purple-700">Marketplace</h3>
-              <p className="text-sm text-purple-600">
-                Split payments automatically for multi-vendor platforms
-              </p>
-            </div>
-          </div>
-
-          <div className="mt-6 rounded-lg bg-gradient-to-r from-blue-50 to-indigo-50 p-4 max-w-2xl">
-            <h3 className="font-semibold text-gray-900 mb-2">What to Expect:</h3>
-            <ul className="text-sm text-gray-700 space-y-1 text-left">
-              <li>✓ Learn about Razorpay's products and pricing</li>
-              <li>✓ Get answers to your payment solution questions</li>
-              <li>✓ Share your business needs and use case</li>
-              <li>✓ Receive personalized recommendations</li>
-            </ul>
-          </div>
-
-          <Button variant="primary" size="lg" onClick={onStartCall} className="mt-6 w-64 font-mono">
-            {startButtonText}
-          </Button>
-        </section>
-
-        <div className="fixed bottom-5 left-0 flex w-full items-center justify-center">
-          <p className="text-muted-foreground max-w-prose pt-1 text-xs leading-5 font-normal text-pretty md:text-sm">
-            Powered by LiveKit Voice AI •{' '}
-            <a
-              target="_blank"
-              rel="noopener noreferrer"
-              href="https://razorpay.com"
-              className="underline"
-            >
-              Visit Razorpay.com
-            </a>
-          </p>
-        </div>
-      </div>
-    );
-  }
-
-  // Tutor Mode Content (original)
   return (
     <div ref={ref}>
       <section className="bg-background flex flex-col items-center justify-center text-center">
-        <BookIcon />
+        <FoodIcon />
 
-        <h1 className="text-foreground mb-2 text-3xl font-bold">Teach-the-Tutor</h1>
-        <h2 className="text-foreground mb-4 text-xl font-semibold text-emerald-600">
-          Active Recall Coach
+        <h1 className="text-foreground mb-2 text-3xl font-bold">FreshMart</h1>
+        <h2 className="text-foreground mb-4 text-xl font-semibold text-green-600">
+          Food & Grocery Ordering
         </h2>
 
         <p className="text-foreground max-w-prose pt-1 leading-6 font-medium">
-          Learn programming concepts through active recall! Choose from three learning modes:
+          Order fresh groceries and prepared foods with our AI-powered voice assistant. 
+          Simply speak your order and we'll take care of the rest!
         </p>
 
-        <div className="mt-4 grid max-w-2xl grid-cols-1 gap-4 md:grid-cols-3">
+        <div className="mt-6 grid max-w-3xl grid-cols-1 gap-4 md:grid-cols-3">
+          <div className="rounded-lg bg-green-50 p-4">
+            <div className="mb-2 text-2xl">🛒</div>
+            <h3 className="font-semibold text-green-700">Smart Shopping</h3>
+            <p className="text-sm text-green-600">
+              Add items by name or ask for recipe ingredients
+            </p>
+          </div>
           <div className="rounded-lg bg-blue-50 p-4">
-            <div className="mb-2 text-2xl">📚</div>
-            <h3 className="font-semibold text-blue-700">Learn</h3>
-            <p className="text-sm text-blue-600">Matthew explains concepts clearly</p>
+            <div className="mb-2 text-2xl">🎯</div>
+            <h3 className="font-semibold text-blue-700">Easy Ordering</h3>
+            <p className="text-sm text-blue-600">
+              Manage your cart with simple voice commands
+            </p>
           </div>
           <div className="rounded-lg bg-purple-50 p-4">
-            <div className="mb-2 text-2xl">🧠</div>
-            <h3 className="font-semibold text-purple-700">Quiz</h3>
-            <p className="text-sm text-purple-600">Alicia tests your understanding</p>
-          </div>
-          <div className="rounded-lg bg-green-50 p-4">
-            <div className="mb-2 text-2xl">👨‍🏫</div>
-            <h3 className="font-semibold text-green-700">Teach Back</h3>
-            <p className="text-sm text-green-600">Ken listens to your explanations</p>
+            <div className="mb-2 text-2xl">📦</div>
+            <h3 className="font-semibold text-purple-700">Quick Pickup</h3>
+            <p className="text-sm text-purple-600">
+              Complete your order and we'll have it ready
+            </p>
           </div>
         </div>
 
-        <Button variant="primary" size="lg" onClick={onStartCall} className="mt-6 w-64 font-mono">
+        <div className="mt-6 max-w-2xl rounded-lg border-2 border-green-200 bg-gradient-to-r from-green-50 to-blue-50 p-4">
+          <h3 className="mb-2 font-semibold text-gray-900">🎤 Try saying:</h3>
+          <ul className="space-y-1 text-left text-sm text-gray-700">
+            <li>✓ "I need some bread and milk"</li>
+            <li>✓ "Add ingredients for pasta to my cart"</li>
+            <li>✓ "What's in my cart?"</li>
+            <li>✓ "Remove the eggs"</li>
+            <li>✓ "I'm done, place my order"</li>
+          </ul>
+        </div>
+
+        <Button
+          variant="primary"
+          size="lg"
+          onClick={onStartCall}
+          className="mt-6 w-64 bg-green-600 font-mono hover:bg-green-700"
+        >
           {startButtonText}
         </Button>
       </section>
 
       <div className="fixed bottom-5 left-0 flex w-full items-center justify-center">
         <p className="text-muted-foreground max-w-prose pt-1 text-xs leading-5 font-normal text-pretty md:text-sm">
-          Need help getting set up? Check out the{' '}
+          Powered by LiveKit Voice AI •{' '}
           <a
             target="_blank"
             rel="noopener noreferrer"
-            href="https://docs.livekit.io/agents/start/voice-ai/"
+            href="https://livekit.io"
             className="underline"
           >
-            Voice AI quickstart
+            FreshMart Grocery
           </a>
-          .
         </p>
       </div>
     </div>
