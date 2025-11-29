@@ -2,11 +2,21 @@
 
 import { AnimatePresence, motion } from 'motion/react';
 import { FoodSessionView } from '@/components/app/food-session-view';
+import { GMSessionView } from '@/components/app/gm-session-view';
+import { FraudSessionView } from '@/components/app/fraud-session-view';
+import { TutorSessionView } from '@/components/app/tutor-session-view';
+import { SDRSessionView } from '@/components/app/sdr-session-view';
+import { WellnessSessionView } from '@/components/app/wellness-session-view';
 import { useSession } from '@/components/app/session-provider';
 import { WelcomeView } from '@/components/app/welcome-view';
 
 const MotionWelcomeView = motion.create(WelcomeView);
 const MotionFoodSessionView = motion.create(FoodSessionView);
+const MotionGMSessionView = motion.create(GMSessionView);
+const MotionFraudSessionView = motion.create(FraudSessionView);
+const MotionTutorSessionView = motion.create(TutorSessionView);
+const MotionSDRSessionView = motion.create(SDRSessionView);
+const MotionWellnessSessionView = motion.create(WellnessSessionView);
 
 const VIEW_MOTION_PROPS = {
   variants: {
@@ -28,8 +38,7 @@ const VIEW_MOTION_PROPS = {
 export function ViewController() {
   const { appConfig, isSessionActive, startSession } = useSession();
 
-  // Food ordering mode only
-  const mode = 'food';
+  const agentType = appConfig.agentType || 'food';
 
   return (
     <AnimatePresence mode="wait">
@@ -40,13 +49,48 @@ export function ViewController() {
           {...VIEW_MOTION_PROPS}
           startButtonText={appConfig.startButtonText}
           onStartCall={startSession}
-          mode={mode}
+          mode={agentType}
         />
       )}
-      {/* Food ordering session view */}
-      {isSessionActive && (
+      {/* Session views based on agent type */}
+      {isSessionActive && agentType === 'food' && (
         <MotionFoodSessionView
           key="food-session-view"
+          {...VIEW_MOTION_PROPS}
+          appConfig={appConfig}
+        />
+      )}
+      {isSessionActive && agentType === 'gm' && (
+        <MotionGMSessionView
+          key="gm-session-view"
+          {...VIEW_MOTION_PROPS}
+          appConfig={appConfig}
+        />
+      )}
+      {isSessionActive && agentType === 'fraud' && (
+        <MotionFraudSessionView
+          key="fraud-session-view"
+          {...VIEW_MOTION_PROPS}
+          appConfig={appConfig}
+        />
+      )}
+      {isSessionActive && agentType === 'tutor' && (
+        <MotionTutorSessionView
+          key="tutor-session-view"
+          {...VIEW_MOTION_PROPS}
+          appConfig={appConfig}
+        />
+      )}
+      {isSessionActive && agentType === 'sdr' && (
+        <MotionSDRSessionView
+          key="sdr-session-view"
+          {...VIEW_MOTION_PROPS}
+          appConfig={appConfig}
+        />
+      )}
+      {isSessionActive && agentType === 'wellness' && (
+        <MotionWellnessSessionView
+          key="wellness-session-view"
           {...VIEW_MOTION_PROPS}
           appConfig={appConfig}
         />

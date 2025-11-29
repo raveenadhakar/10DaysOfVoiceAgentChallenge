@@ -52,6 +52,7 @@ export function useRoom(appConfig: AppConfig) {
               'X-Sandbox-Id': appConfig.sandboxId ?? '',
             },
             body: JSON.stringify({
+              agent_type: appConfig.agentType || 'food',
               room_config: appConfig.agentName
                 ? {
                     agents: [{ agent_name: appConfig.agentName }],
@@ -69,20 +70,48 @@ export function useRoom(appConfig: AppConfig) {
   );
 
   const startSession = useCallback(() => {
+    console.log('🚀 Starting session with config:', {
+      agentType: appConfig.agentType,
+      agentName: appConfig.agentName,
+      roomState: room.state
+    });
+    
     setIsSessionActive(true);
 
     if (room.state === 'disconnected') {
       const { isPreConnectBufferEnabled } = appConfig;
+      
+      // Show a connecting toast
+      toastAlert({
+        title: 'Connecting to agent...',
+        description: 'Please allow microphone access when prompted',
+      });
+      
       Promise.all([
         room.localParticipant.setMicrophoneEnabled(true, undefined, {
           preConnectBuffer: isPreConnectBufferEnabled,
+        }).catch((micError) => {
+          console.error('❌ Microphone error:', micError);
+          throw new Error(`Microphone access denied or unavailable: ${micError.message}`);
         }),
         tokenSource
           .fetch({ agentName: appConfig.agentName })
-          .then((connectionDetails) =>
-            room.connect(connectionDetails.serverUrl, connectionDetails.participantToken)
-          ),
-      ]).catch((error) => {
+          .then((connectionDetails) => {
+            console.log('✅ Connection details received:', connectionDetails);
+            if (!connectionDetails.serverUrl || !connectionDetails.participantToken) {
+              throw new Error('Invalid connection details received from server');
+            }
+            return room.connect(connectionDetails.serverUrl, connectionDetails.participantToken);
+          }),
+      ])
+      .then(() => {
+        console.log('✅ Successfully connected to room');
+        toastAlert({
+          title: 'Connected!',
+          description: 'You can now speak to the agent',
+        });
+      })
+      .catch((error) => {
         if (aborted.current) {
           // Once the effect has cleaned up after itself, drop any errors
           //
@@ -92,11 +121,28 @@ export function useRoom(appConfig: AppConfig) {
           return;
         }
 
+        console.error('❌ Error connecting to agent:', error);
+        setIsSessionActive(false); // Reset session state on error
+        
+        // Provide more specific error messages
+        let errorTitle = 'Connection Error';
+        let errorDescription = error.message;
+        
+        if (error.message.includes('Microphone')) {
+          errorTitle = 'Microphone Access Required';
+          errorDescription = 'Please allow microphone access in your browser settings and try again.';
+        } else if (error.message.includes('connection details')) {
+          errorTitle = 'Server Connection Failed';
+          errorDescription = 'Could not connect to the voice agent server. Please check if the backend is running.';
+        }
+        
         toastAlert({
-          title: 'There was an error connecting to the agent',
-          description: `${error.name}: ${error.message}`,
+          title: errorTitle,
+          description: errorDescription,
         });
       });
+    } else {
+      console.log('⚠️ Room is not in disconnected state:', room.state);
     }
   }, [room, appConfig, tokenSource]);
 

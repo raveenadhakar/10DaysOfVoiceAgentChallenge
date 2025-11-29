@@ -18,20 +18,32 @@ const LIVEKIT_URL = process.env.LIVEKIT_URL;
 export const revalidate = 0;
 
 export async function POST(req: Request) {
+  console.log('📥 POST /api/connection-details - Request received');
+  
   try {
     if (LIVEKIT_URL === undefined) {
+      console.error('❌ LIVEKIT_URL is not defined');
       throw new Error('LIVEKIT_URL is not defined');
     }
     if (API_KEY === undefined) {
+      console.error('❌ LIVEKIT_API_KEY is not defined');
       throw new Error('LIVEKIT_API_KEY is not defined');
     }
     if (API_SECRET === undefined) {
+      console.error('❌ LIVEKIT_API_SECRET is not defined');
       throw new Error('LIVEKIT_API_SECRET is not defined');
     }
 
     // Parse agent configuration from request body
     const body = await req.json();
     const agentName: string = body?.room_config?.agents?.[0]?.agent_name;
+    const agentType: string = body?.agent_type || 'food'; // Default to food agent
+
+    console.log('🎯 Connection request received:', {
+      agentType,
+      agentName,
+      body: JSON.stringify(body, null, 2)
+    });
 
     // Generate participant token
     const participantName = 'user';
@@ -41,7 +53,8 @@ export async function POST(req: Request) {
     const participantToken = await createParticipantToken(
       { identity: participantIdentity, name: participantName },
       roomName,
-      agentName
+      agentName,
+      agentType
     );
 
     // Return connection details
@@ -51,13 +64,20 @@ export async function POST(req: Request) {
       participantToken: participantToken,
       participantName,
     };
+    
+    console.log('✅ Connection details created:', {
+      roomName,
+      agentType,
+      serverUrl: LIVEKIT_URL
+    });
+    
     const headers = new Headers({
       'Cache-Control': 'no-store',
     });
     return NextResponse.json(data, { headers });
   } catch (error) {
     if (error instanceof Error) {
-      console.error(error);
+      console.error('❌ Error creating connection:', error);
       return new NextResponse(error.message, { status: 500 });
     }
   }
@@ -66,7 +86,8 @@ export async function POST(req: Request) {
 function createParticipantToken(
   userInfo: AccessTokenOptions,
   roomName: string,
-  agentName?: string
+  agentName?: string,
+  agentType?: string
 ): Promise<string> {
   const at = new AccessToken(API_KEY, API_SECRET, {
     ...userInfo,
@@ -81,10 +102,15 @@ function createParticipantToken(
   };
   at.addGrant(grant);
 
-  if (agentName) {
+  if (agentName || agentType) {
     at.roomConfig = new RoomConfiguration({
-      agents: [{ agentName }],
+      agents: agentName ? [{ agentName }] : [],
     });
+    
+    // Set room metadata to specify agent type
+    if (agentType) {
+      at.roomConfig.metadata = agentType;
+    }
   }
 
   return at.toJwt();

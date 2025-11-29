@@ -17,9 +17,10 @@
   // for LiveKit Cloud Sandbox
   sandboxId?: string;
   agentName?: string;
+  agentType?: AgentType;
 }
 
-export type AgentType = 'food' | 'wellness' | 'tutor' | 'sdr' | 'fraud';
+export type AgentType = 'food' | 'wellness' | 'tutor' | 'sdr' | 'fraud' | 'gm';
 
 export interface AgentConfig {
   id: AgentType;
@@ -140,6 +141,28 @@ export const AGENT_CONFIGS: Record<AgentType, AgentConfig> = {
       logoDark: '/lk-logo-dark.svg',
       accentDark: '#ef4444',
       startButtonText: 'Verify Transaction',
+    }
+  },
+  gm: {
+    id: 'gm',
+    name: 'D&D Game Master',
+    description: 'Embark on an epic fantasy adventure with an AI Game Master guiding your story.',
+    icon: '🎲',
+    color: '#9333ea',
+    colorDark: '#a855f7',
+    config: {
+      companyName: 'Fantasy Quest',
+      pageTitle: 'D&D Game Master',
+      pageDescription: 'Embark on an epic fantasy adventure with an AI Game Master. Your choices shape the story!',
+      supportsChatInput: true,
+      supportsVideoInput: false,
+      supportsScreenShare: false,
+      isPreConnectBufferEnabled: true,
+      logo: '/lk-logo.svg',
+      accent: '#9333ea',
+      logoDark: '/lk-logo-dark.svg',
+      accentDark: '#a855f7',
+      startButtonText: 'Begin Adventure',
     }
   }
 };
