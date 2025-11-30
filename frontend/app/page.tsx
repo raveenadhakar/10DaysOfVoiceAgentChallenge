@@ -1,5 +1,11 @@
 import Link from 'next/link';
 import { AGENT_CONFIGS, type AgentType } from '@/app-config';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Murf Voices',
+  description: 'Choose an AI agent to interact with',
+};
 
 export default function HomePage() {
   const agents = Object.values(AGENT_CONFIGS);
@@ -9,7 +15,7 @@ export default function HomePage() {
       <div className="container mx-auto px-4 py-16">
         <div className="text-center mb-12">
           <h1 className="text-5xl font-bold text-gray-900 dark:text-white mb-4">
-            AI Voice Agents
+            Murf Voices
           </h1>
           <p className="text-xl text-gray-600 dark:text-gray-300">
             Choose an AI agent to interact with
@@ -20,7 +26,7 @@ export default function HomePage() {
           {agents.map((agent) => (
             <Link
               key={agent.id}
-              href={`/?agent=${agent.id}`}
+              href={`/agent?agent=${agent.id}`}
               className="group relative overflow-hidden rounded-2xl bg-white dark:bg-gray-800 p-6 shadow-lg hover:shadow-xl transition-all duration-300 border-2 border-transparent hover:border-current"
               style={{ color: agent.color }}
             >

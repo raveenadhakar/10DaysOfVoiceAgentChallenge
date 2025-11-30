@@ -7,6 +7,7 @@ import { FraudSessionView } from '@/components/app/fraud-session-view';
 import { TutorSessionView } from '@/components/app/tutor-session-view';
 import { SDRSessionView } from '@/components/app/sdr-session-view';
 import { WellnessSessionView } from '@/components/app/wellness-session-view';
+import { CommerceSessionView } from '@/components/app/commerce-session-view';
 import { useSession } from '@/components/app/session-provider';
 import { WelcomeView } from '@/components/app/welcome-view';
 
@@ -17,6 +18,7 @@ const MotionFraudSessionView = motion.create(FraudSessionView);
 const MotionTutorSessionView = motion.create(TutorSessionView);
 const MotionSDRSessionView = motion.create(SDRSessionView);
 const MotionWellnessSessionView = motion.create(WellnessSessionView);
+const MotionCommerceSessionView = motion.create(CommerceSessionView);
 
 const VIEW_MOTION_PROPS = {
   variants: {
@@ -91,6 +93,13 @@ export function ViewController() {
       {isSessionActive && agentType === 'wellness' && (
         <MotionWellnessSessionView
           key="wellness-session-view"
+          {...VIEW_MOTION_PROPS}
+          appConfig={appConfig}
+        />
+      )}
+      {isSessionActive && agentType === 'commerce' && (
+        <MotionCommerceSessionView
+          key="commerce-session-view"
           {...VIEW_MOTION_PROPS}
           appConfig={appConfig}
         />

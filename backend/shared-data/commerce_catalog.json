@@ -1,0 +1,134 @@
+{
+  "products": [
+    {
+      "id": "mug-001",
+      "name": "Stoneware Coffee Mug",
+      "description": "Handcrafted ceramic mug perfect for your morning coffee",
+      "price": 800,
+      "currency": "INR",
+      "category": "mug",
+      "attributes": {
+        "color": "white",
+        "material": "ceramic",
+        "capacity": "350ml"
+      }
+    },
+    {
+      "id": "mug-002",
+      "name": "Blue Ceramic Mug",
+      "description": "Beautiful blue glazed ceramic mug",
+      "price": 750,
+      "currency": "INR",
+      "category": "mug",
+      "attributes": {
+        "color": "blue",
+        "material": "ceramic",
+        "capacity": "300ml"
+      }
+    },
+    {
+      "id": "tshirt-001",
+      "name": "Cotton T-Shirt Black",
+      "description": "Premium cotton t-shirt in classic black",
+      "price": 899,
+      "currency": "INR",
+      "category": "clothing",
+      "attributes": {
+        "color": "black",
+        "material": "cotton",
+        "sizes": ["S", "M", "L", "XL"]
+      }
+    },
+    {
+      "id": "tshirt-002",
+      "name": "Cotton T-Shirt White",
+      "description": "Premium cotton t-shirt in crisp white",
+      "price": 899,
+      "currency": "INR",
+      "category": "clothing",
+      "attributes": {
+        "color": "white",
+        "material": "cotton",
+        "sizes": ["S", "M", "L", "XL"]
+      }
+    },
+    {
+      "id": "hoodie-001",
+      "name": "Black Hoodie",
+      "description": "Comfortable fleece hoodie in black",
+      "price": 1899,
+      "currency": "INR",
+      "category": "clothing",
+      "attributes": {
+        "color": "black",
+        "material": "fleece",
+        "sizes": ["S", "M", "L", "XL"]
+      }
+    },
+    {
+      "id": "hoodie-002",
+      "name": "Grey Hoodie",
+      "description": "Comfortable fleece hoodie in grey",
+      "price": 1899,
+      "currency": "INR",
+      "category": "clothing",
+      "attributes": {
+        "color": "grey",
+        "material": "fleece",
+        "sizes": ["S", "M", "L", "XL"]
+      }
+    },
+    {
+      "id": "notebook-001",
+      "name": "Leather Notebook",
+      "description": "Premium leather-bound notebook with 200 pages",
+      "price": 1200,
+      "currency": "INR",
+      "category": "stationery",
+      "attributes": {
+        "color": "brown",
+        "material": "leather",
+        "pages": 200
+      }
+    },
+    {
+      "id": "pen-001",
+      "name": "Fountain Pen",
+      "description": "Classic fountain pen with smooth ink flow",
+      "price": 650,
+      "currency": "INR",
+      "category": "stationery",
+      "attributes": {
+        "color": "black",
+        "material": "metal",
+        "type": "fountain"
+      }
+    },
+    {
+      "id": "backpack-001",
+      "name": "Canvas Backpack",
+      "description": "Durable canvas backpack with laptop compartment",
+      "price": 2499,
+      "currency": "INR",
+      "category": "bags",
+      "attributes": {
+        "color": "navy",
+        "material": "canvas",
+        "capacity": "25L"
+      }
+    },
+    {
+      "id": "bottle-001",
+      "name": "Stainless Steel Water Bottle",
+      "description": "Insulated water bottle keeps drinks cold for 24 hours",
+      "price": 999,
+      "currency": "INR",
+      "category": "accessories",
+      "attributes": {
+        "color": "silver",
+        "material": "stainless steel",
+        "capacity": "750ml"
+      }
+    }
+  ]
+}

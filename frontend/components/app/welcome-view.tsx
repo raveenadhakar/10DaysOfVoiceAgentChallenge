@@ -27,8 +27,8 @@ export const WelcomeView = ({
   // Agent-specific content
   const content = {
     food: {
-      title: 'FreshMart',
-      subtitle: 'Food & Grocery Ordering',
+      title: 'Food & Grocery Ordering',
+      subtitle: 'AI-Powered Shopping Assistant',
       description: 'Order fresh groceries and prepared foods with our AI-powered voice assistant. Simply speak your order and we\'ll take care of the rest!',
       icon: '🛒',
       features: [
@@ -132,6 +132,24 @@ export const WelcomeView = ({
         '"Can you tell me more about the charge?"',
         '"I want to block my card"',
         '"What should I do next?"',
+      ],
+    },
+    commerce: {
+      title: 'E-commerce Shopping',
+      subtitle: 'AI Shopping Assistant',
+      description: 'Shop for products with our AI-powered voice assistant following the Agentic Commerce Protocol. Browse, compare, and buy with ease!',
+      icon: '🛍️',
+      features: [
+        { emoji: '🔍', title: 'Smart Search', desc: 'Find products by category, price, or features', color: 'orange' },
+        { emoji: '🛒', title: 'Easy Cart', desc: 'Add items and manage your shopping cart', color: 'blue' },
+        { emoji: '✅', title: 'Quick Checkout', desc: 'Complete your purchase with voice commands', color: 'green' },
+      ],
+      examples: [
+        '"Show me all coffee mugs"',
+        '"Do you have any t-shirts under 1000?"',
+        '"I\'m looking for a black hoodie"',
+        '"Add the second item to my cart"',
+        '"What\'s in my cart?"',
       ],
     },
   };

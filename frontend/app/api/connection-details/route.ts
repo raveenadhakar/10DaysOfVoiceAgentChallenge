@@ -46,9 +46,10 @@ export async function POST(req: Request) {
     });
 
     // Generate participant token
+    // Encode agent type in room name to ensure it's available immediately
     const participantName = 'user';
     const participantIdentity = `voice_assistant_user_${Math.floor(Math.random() * 10_000)}`;
-    const roomName = `voice_assistant_room_${Math.floor(Math.random() * 10_000)}`;
+    const roomName = `voice_assistant_${agentType}_${Math.floor(Math.random() * 10_000)}`;
 
     const participantToken = await createParticipantToken(
       { identity: participantIdentity, name: participantName },
@@ -102,15 +103,15 @@ function createParticipantToken(
   };
   at.addGrant(grant);
 
-  if (agentName || agentType) {
-    at.roomConfig = new RoomConfiguration({
-      agents: agentName ? [{ agentName }] : [],
-    });
-    
-    // Set room metadata to specify agent type
-    if (agentType) {
-      at.roomConfig.metadata = agentType;
-    }
+  // Always create room config to set metadata
+  at.roomConfig = new RoomConfiguration({
+    agents: agentName ? [{ agentName }] : [],
+  });
+  
+  // Set room metadata to specify agent type (this is critical!)
+  if (agentType) {
+    at.roomConfig.metadata = agentType;
+    console.log(`🎯 Setting room metadata to: ${agentType}`);
   }
 
   return at.toJwt();

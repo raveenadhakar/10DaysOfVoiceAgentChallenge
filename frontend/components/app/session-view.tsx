@@ -92,11 +92,6 @@ export const SessionView = ({
 
   return (
     <section className="bg-background relative z-10 h-full w-full overflow-hidden" {...props}>
-      {/* Food Order Display */}
-      <div className="fixed top-4 right-4 z-40 max-w-sm md:max-w-md lg:max-w-lg">
-        <FoodOrderDisplay className="scale-90 transform md:scale-100" />
-      </div>
-
       {/* Chat Transcript */}
       <div
         className={cn(

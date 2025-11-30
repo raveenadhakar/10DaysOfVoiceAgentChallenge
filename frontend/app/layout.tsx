@@ -62,8 +62,6 @@ export default async function RootLayout({ children }: RootLayoutProps) {
     >
       <head>
         {styles && <style>{styles}</style>}
-        <title>{pageTitle}</title>
-        <meta name="description" content={pageDescription} />
         <ApplyThemeScript />
       </head>
       <body className="overflow-x-hidden">

@@ -44,6 +44,17 @@ export function useRoom(appConfig: AppConfig) {
           window.location.origin
         );
 
+        const requestBody = {
+          agent_type: appConfig.agentType || 'food',
+          room_config: appConfig.agentName
+            ? {
+                agents: [{ agent_name: appConfig.agentName }],
+              }
+            : undefined,
+        };
+
+        console.log('🎯 Sending connection request with:', requestBody);
+
         try {
           const res = await fetch(url.toString(), {
             method: 'POST',
@@ -51,18 +62,13 @@ export function useRoom(appConfig: AppConfig) {
               'Content-Type': 'application/json',
               'X-Sandbox-Id': appConfig.sandboxId ?? '',
             },
-            body: JSON.stringify({
-              agent_type: appConfig.agentType || 'food',
-              room_config: appConfig.agentName
-                ? {
-                    agents: [{ agent_name: appConfig.agentName }],
-                  }
-                : undefined,
-            }),
+            body: JSON.stringify(requestBody),
           });
-          return await res.json();
+          const data = await res.json();
+          console.log('✅ Received connection details:', data);
+          return data;
         } catch (error) {
-          console.error('Error fetching connection details:', error);
+          console.error('❌ Error fetching connection details:', error);
           throw new Error('Error fetching connection details!');
         }
       }),

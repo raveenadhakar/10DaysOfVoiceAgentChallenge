@@ -5,105 +5,81 @@ import { useDataChannel } from '@livekit/components-react';
 import { AppConfig } from '@/app-config';
 import { SessionView } from '@/components/app/session-view';
 
-interface FoodOrderData {
+interface CommerceData {
   type: string;
   data?: {
-    cart?: CartItem[];
+    items?: CartItem[];
+    count?: number;
     total?: number;
-    subtotal?: number;
-    tax?: number;
+    id?: string;
+    status?: string;
+    created_at?: string;
     customer?: {
       name?: string;
       address?: string;
     };
-    order_id?: string;
-    status?: string;
   };
 }
 
 interface CartItem {
-  id: string;
+  product_id: string;
   name: string;
-  category: string;
   price: number;
-  brand?: string;
-  size?: string;
-  units?: string;
-  tags?: string[];
   quantity: number;
-  notes?: string;
   subtotal: number;
+  size?: string;
 }
 
-interface FoodSessionViewProps {
+interface CommerceSessionViewProps {
   appConfig: AppConfig;
 }
 
-export function FoodSessionView({ appConfig }: FoodSessionViewProps) {
+export function CommerceSessionView({ appConfig }: CommerceSessionViewProps) {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
-  const [orderTotal, setOrderTotal] = useState<number>(0);
-  const [orderSubtotal, setOrderSubtotal] = useState<number>(0);
-  const [orderTax, setOrderTax] = useState<number>(0);
-  const [customerInfo, setCustomerInfo] = useState<{ name?: string; address?: string }>({});
+  const [cartTotal, setCartTotal] = useState<number>(0);
   const [orderStatus, setOrderStatus] = useState<string>('shopping');
   const [orderId, setOrderId] = useState<string>('');
+  const [customerInfo, setCustomerInfo] = useState<{ name?: string; address?: string }>({});
 
-  const { message } = useDataChannel('food_order');
+  const { message } = useDataChannel('commerce');
 
   useEffect(() => {
     if (!message) return;
 
     try {
       const rawText = new TextDecoder().decode(message.payload).trim();
-      const data: FoodOrderData = JSON.parse(rawText);
+      const data: CommerceData = JSON.parse(rawText);
 
-      console.log('Received food order data:', data);
+      console.log('Received commerce data:', data);
 
       if (data.type === 'cart_update' && data.data) {
-        if (data.data.cart) setCartItems(data.data.cart);
-        if (data.data.subtotal !== undefined) setOrderSubtotal(data.data.subtotal);
-        if (data.data.tax !== undefined) setOrderTax(data.data.tax);
-        if (data.data.total !== undefined) setOrderTotal(data.data.total);
+        if (data.data.items) setCartItems(data.data.items);
+        if (data.data.total !== undefined) setCartTotal(data.data.total);
       } else if (data.type === 'order_complete' && data.data) {
-        if (data.data.order_id) setOrderId(data.data.order_id);
+        if (data.data.id) setOrderId(data.data.id);
         if (data.data.status) setOrderStatus(data.data.status);
         if (data.data.customer) setCustomerInfo(data.data.customer);
         
         // Reset cart after order completion
         setTimeout(() => {
           setCartItems([]);
-          setOrderTotal(0);
-          setOrderSubtotal(0);
-          setOrderTax(0);
+          setCartTotal(0);
           setCustomerInfo({});
           setOrderStatus('shopping');
           setOrderId('');
         }, 8000); // Show completion for 8 seconds
       }
     } catch (error) {
-      console.error('Failed to parse food order data:', error);
+      console.error('Failed to parse commerce data:', error);
     }
   }, [message]);
 
-  const getCategoryIcon = (category: string) => {
-    switch (category.toLowerCase()) {
-      case 'groceries':
-        return '🛒';
-      case 'snacks':
-        return '🍿';
-      case 'prepared_food':
-        return '🍕';
-      default:
-        return '🍽️';
-    }
-  };
-
   const getStatusColor = () => {
     switch (orderStatus) {
+      case 'pending':
+        return 'text-orange-600 bg-orange-50 border-orange-200';
       case 'confirmed':
         return 'text-green-600 bg-green-50 border-green-200';
-      case 'processing':
-        return 'text-blue-600 bg-blue-50 border-blue-200';
       default:
         return 'text-gray-600 bg-gray-50 border-gray-200';
     }
@@ -149,65 +125,38 @@ export function FoodSessionView({ appConfig }: FoodSessionViewProps) {
 
             {cartItems.length === 0 ? (
               <div className="text-center py-8">
-                <div className="text-4xl mb-2">🛒</div>
+                <div className="text-4xl mb-2">🛍️</div>
                 <p className="text-gray-500 text-sm">Your cart is empty</p>
                 <p className="text-gray-400 text-xs mt-1">
-                  Start by saying "I need some bread" or "Add pasta to my cart"
+                  Start by saying "Show me coffee mugs" or "I'm looking for a hoodie"
                 </p>
               </div>
             ) : (
               <div className="space-y-3">
                 {cartItems.map((item, index) => (
                   <div
-                    key={`${item.id}-${index}`}
+                    key={`${item.product_id}-${index}`}
                     className="rounded-lg border border-gray-200 p-3 hover:border-gray-300 transition-colors"
                   >
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
-                        <div className="flex items-center gap-2">
-                          <span className="text-lg">
-                            {getCategoryIcon(item.category)}
-                          </span>
-                          <div>
-                            <h4 className="font-medium text-gray-900 text-sm">
-                              {item.name}
-                            </h4>
-                            {item.brand && (
-                              <p className="text-xs text-gray-500">by {item.brand}</p>
-                            )}
-                          </div>
-                        </div>
+                        <h4 className="font-medium text-gray-900 text-sm">
+                          {item.name}
+                        </h4>
                         
-                        <div className="mt-1 flex items-center gap-2 text-xs text-gray-600">
-                          <span>{item.size}</span>
-                          {item.notes && (
-                            <>
-                              <span>•</span>
-                              <span className="italic">{item.notes}</span>
-                            </>
-                          )}
-                        </div>
-
-                        {item.tags && item.tags.length > 0 && (
-                          <div className="mt-1 flex flex-wrap gap-1">
-                            {item.tags.slice(0, 2).map((tag) => (
-                              <span
-                                key={tag}
-                                className="rounded-full bg-gray-100 px-2 py-0.5 text-xs text-gray-600"
-                              >
-                                {tag}
-                              </span>
-                            ))}
+                        {item.size && (
+                          <div className="mt-1 text-xs text-gray-600">
+                            Size: {item.size}
                           </div>
                         )}
                       </div>
 
                       <div className="text-right">
                         <div className="text-sm font-semibold text-gray-900">
-                          ${item.subtotal.toFixed(2)}
+                          ₹{item.subtotal}
                         </div>
                         <div className="text-xs text-gray-500">
-                          {item.quantity}x ${item.price.toFixed(2)}
+                          {item.quantity}x ₹{item.price}
                         </div>
                       </div>
                     </div>
@@ -223,20 +172,10 @@ export function FoodSessionView({ appConfig }: FoodSessionViewProps) {
               <h3 className="mb-3 font-semibold text-gray-900">Order Summary</h3>
               
               <div className="space-y-2 text-sm">
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Subtotal</span>
-                  <span className="font-medium">${orderSubtotal.toFixed(2)}</span>
-                </div>
-                
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Tax</span>
-                  <span className="font-medium">${orderTax.toFixed(2)}</span>
-                </div>
-                
                 <div className="border-t border-gray-200 pt-2 flex justify-between">
                   <span className="font-semibold text-gray-900">Total</span>
-                  <span className="font-bold text-lg text-green-600">
-                    ${orderTotal.toFixed(2)}
+                  <span className="font-bold text-lg text-orange-600">
+                    ₹{cartTotal}
                   </span>
                 </div>
               </div>
@@ -248,14 +187,14 @@ export function FoodSessionView({ appConfig }: FoodSessionViewProps) {
             <h3 className="mb-3 font-semibold text-gray-900">Quick Actions</h3>
             
             <div className="space-y-2 text-sm">
-              <div className="rounded bg-blue-50 p-2">
-                <div className="font-medium text-blue-900">💬 Try saying:</div>
-                <ul className="mt-1 text-blue-700 text-xs space-y-0.5">
-                  <li>"Add bread to my cart"</li>
-                  <li>"I need ingredients for pasta"</li>
+              <div className="rounded bg-orange-50 p-2">
+                <div className="font-medium text-orange-900">💬 Try saying:</div>
+                <ul className="mt-1 text-orange-700 text-xs space-y-0.5">
+                  <li>"Show me all coffee mugs"</li>
+                  <li>"Do you have t-shirts under 1000?"</li>
+                  <li>"Add the second item to my cart"</li>
                   <li>"What's in my cart?"</li>
-                  <li>"Remove the milk"</li>
-                  <li>"I'm done, place my order"</li>
+                  <li>"Place my order"</li>
                 </ul>
               </div>
             </div>
