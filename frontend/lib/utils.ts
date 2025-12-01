@@ -12,10 +12,10 @@ export const THEME_MEDIA_QUERY = '(prefers-color-scheme: dark)';
 
 export interface SandboxConfig {
   [key: string]:
-    | { type: 'string'; value: string }
-    | { type: 'number'; value: number }
-    | { type: 'boolean'; value: boolean }
-    | null;
+  | { type: 'string'; value: string }
+  | { type: 'number'; value: number }
+  | { type: 'boolean'; value: boolean }
+  | null;
 }
 
 export function cn(...inputs: ClassValue[]) {

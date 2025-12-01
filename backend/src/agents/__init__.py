@@ -6,6 +6,7 @@ from .tutor_agent import TutorCoordinatorAgent, TutorContent
 from .sdr_agent import SDRAgent, LeadState, CompanyFAQ
 from .gm_agent import GameMasterAgent
 from .commerce_agent import CommerceAgent, ProductCatalog, OrderManager
+from .improv_agent import ImprovBattleAgent
 
 __all__ = [
     'FoodOrderingAgent',
@@ -24,4 +25,5 @@ __all__ = [
     'CommerceAgent',
     'ProductCatalog',
     'OrderManager',
+    'ImprovBattleAgent',
 ]

@@ -152,6 +152,24 @@ export const WelcomeView = ({
         '"What\'s in my cart?"',
       ],
     },
+    improv: {
+      title: 'Improv Battle',
+      subtitle: 'Interactive Game Show',
+      description: 'Join an interactive improv game show! Perform hilarious scenarios and get real-time feedback from your AI host in this voice-driven comedy experience.',
+      icon: '🎭',
+      features: [
+        { emoji: '🎬', title: 'Live Performance', desc: 'Act out creative scenarios in real-time', color: 'purple' },
+        { emoji: '🎤', title: 'Voice Acting', desc: 'Use your voice to bring characters to life', color: 'blue' },
+        { emoji: '⭐', title: 'Host Feedback', desc: 'Get entertaining reactions and critiques', color: 'green' },
+      ],
+      examples: [
+        '"Start Improv Battle"',
+        '"My name is Sarah"',
+        '"End scene"',
+        '"I want to try again"',
+        '"Stop game"',
+      ],
+    },
   };
 
   const currentContent = content[mode];

@@ -8,6 +8,7 @@ import { TutorSessionView } from '@/components/app/tutor-session-view';
 import { SDRSessionView } from '@/components/app/sdr-session-view';
 import { WellnessSessionView } from '@/components/app/wellness-session-view';
 import { CommerceSessionView } from '@/components/app/commerce-session-view';
+import { ImprovSessionView } from '@/components/app/improv-session-view';
 import { useSession } from '@/components/app/session-provider';
 import { WelcomeView } from '@/components/app/welcome-view';
 
@@ -19,6 +20,7 @@ const MotionTutorSessionView = motion.create(TutorSessionView);
 const MotionSDRSessionView = motion.create(SDRSessionView);
 const MotionWellnessSessionView = motion.create(WellnessSessionView);
 const MotionCommerceSessionView = motion.create(CommerceSessionView);
+const MotionImprovSessionView = motion.create(ImprovSessionView);
 
 const VIEW_MOTION_PROPS = {
   variants: {
@@ -100,6 +102,13 @@ export function ViewController() {
       {isSessionActive && agentType === 'commerce' && (
         <MotionCommerceSessionView
           key="commerce-session-view"
+          {...VIEW_MOTION_PROPS}
+          appConfig={appConfig}
+        />
+      )}
+      {isSessionActive && agentType === 'improv' && (
+        <MotionImprovSessionView
+          key="improv-session-view"
           {...VIEW_MOTION_PROPS}
           appConfig={appConfig}
         />

@@ -20,7 +20,7 @@
   agentType?: AgentType;
 }
 
-export type AgentType = 'food' | 'wellness' | 'tutor' | 'sdr' | 'fraud' | 'gm' | 'commerce';
+export type AgentType = 'food' | 'wellness' | 'tutor' | 'sdr' | 'fraud' | 'gm' | 'commerce' | 'improv';
 
 export interface AgentConfig {
   id: AgentType;
@@ -185,6 +185,28 @@ export const AGENT_CONFIGS: Record<AgentType, AgentConfig> = {
       logoDark: '/lk-logo-dark.svg',
       accentDark: '#f97316',
       startButtonText: 'Start Shopping',
+    }
+  },
+  improv: {
+    id: 'improv',
+    name: 'Improv Battle Agent',
+    description: 'Join an interactive improv game show where you perform scenarios and get real-time feedback.',
+    icon: '🎭',
+    color: '#db2777',
+    colorDark: '#ec4899',
+    config: {
+      companyName: 'Murf Voices',
+      pageTitle: 'Improv Battle',
+      pageDescription: 'Join an interactive improv game show! Perform hilarious scenarios and get real-time feedback from your AI host.',
+      supportsChatInput: true,
+      supportsVideoInput: false,
+      supportsScreenShare: false,
+      isPreConnectBufferEnabled: true,
+      logo: '/lk-logo.svg',
+      accent: '#db2777',
+      logoDark: '/lk-logo-dark.svg',
+      accentDark: '#ec4899',
+      startButtonText: 'Start Improv Battle',
     }
   }
 };

@@ -25,6 +25,7 @@ from agents.tutor_agent import TutorCoordinatorAgent
 from agents.sdr_agent import SDRAgent
 from agents.gm_agent import GameMasterAgent
 from agents.commerce_agent import CommerceAgent
+from agents.improv_agent import ImprovBattleAgent
 
 logger = logging.getLogger("agent")
 
@@ -126,7 +127,7 @@ async def entrypoint(ctx: JobContext):
         if len(parts) >= 3:
             # Format: voice_assistant_{agent_type}_{number}
             potential_agent_type = parts[2]
-            valid_agent_types = ["food", "fraud", "wellness", "tutor", "sdr", "gm", "commerce"]
+            valid_agent_types = ["food", "fraud", "wellness", "tutor", "sdr", "gm", "commerce", "improv"]
             if potential_agent_type in valid_agent_types:
                 agent_type = potential_agent_type
                 logger.info(f"🎯 ✅ Extracted agent type from room name: '{agent_type}'")
@@ -159,7 +160,7 @@ async def entrypoint(ctx: JobContext):
     logger.info(f"🎯 Extracted agent_type before validation: '{agent_type}'")
     
     # Additional validation
-    valid_agent_types = ["food", "fraud", "wellness", "tutor", "sdr", "gm", "commerce"]
+    valid_agent_types = ["food", "fraud", "wellness", "tutor", "sdr", "gm", "commerce", "improv"]
     if agent_type not in valid_agent_types:
         logger.warning(f"⚠️ Invalid agent type '{agent_type}', defaulting to 'food'")
         agent_type = "food"
@@ -189,6 +190,9 @@ async def entrypoint(ctx: JobContext):
     elif agent_type == "commerce":
         agent = CommerceAgent()
         logger.info("🛍️ ✅ E-commerce Agent created successfully")
+    elif agent_type == "improv":
+        agent = ImprovBattleAgent()
+        logger.info("🎭 ✅ Improv Battle Agent created successfully")
     else:
         # Fallback to food ordering if unknown type
         agent = FoodOrderingAgent()
